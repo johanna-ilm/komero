@@ -1,0 +1,16 @@
+.header {
+    background: linear-gradient(-25deg, #305f72 60%, #f0b7a4 40%);
+    color: #FFF;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 0.5em;
+    max-height: 2.5em;
+    min-height: 2.5em;
+    }
+    
+    .header h1 {
+      font-size: 1.8em;
+      font-family: 'Permanent Marker', cursive;
+      margin-right: 0.8em;
+    }

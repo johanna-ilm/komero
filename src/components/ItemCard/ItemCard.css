@@ -1,0 +1,20 @@
+.itemcard {
+    padding: 1em;
+    margin: 0 1em 0.5em 1em;
+    border: 1px solid #ccc;
+  }
+  
+  .itemcard__row {
+   display: flex;
+   justify-content: space-between;
+  }
+  
+  .itemcard__label, .itemcard__size {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  
+  .itemcard__notes, .itemcard__season, .itemcard__year, .itemcard__price {
+    font-size: 85%;
+    color: #666;
+  }
