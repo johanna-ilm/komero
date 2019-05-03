@@ -1,0 +1,124 @@
+.home {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    }
+
+/* Lampun kuva oikeassa ylänurkassa */
+
+.box__lamp {
+    position: absolute;
+    top: -1em;
+    right: 0;
+}
+
+.box__lamp > img {
+    opacity: 0.3;
+}
+
+/* CSS Grid */
+
+.box__grid {
+    position: absolute;
+    align-self: center;
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    bottom: 1%;
+    width: 90%;
+    height: 80%;
+}
+
+.box {
+    display: flex;
+    background-color: #fbebe6;
+    border: 2px solid rgb(215, 215, 215);
+    border-radius: 0.2em;
+    padding: 2%;
+    justify-content: center;
+    margin: 1px;
+}
+
+.box:hover {
+    transform: translate(5px, 0px);
+}
+
+.box__snowsuit {
+    grid-column: 3 / 16;
+    grid-row: 1;
+}
+
+.box__pants {
+    grid-column: 2 / 12;
+    grid-row: 2;
+}
+
+.box__jacket {
+    grid-column: 13 / 22;
+    grid-row: 2;
+}
+
+.box__hat {
+    grid-column: 1 / 9;
+    grid-row: 3;
+}
+
+.box__shoe {
+    grid-column: 10 / 23;
+    grid-row: 3;
+}
+
+.box__iceskate {
+    grid-column: 3 / 24;
+    grid-row: 4;
+}
+
+.box__floor {
+    border: 1px solid #000;
+}
+
+/* Laatikoiden sisällä olevat kuvat */
+
+.box > img {
+    align-self: center;
+    opacity: 0.5;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.box__snowsuit > img {
+    transform: rotate(-60deg);
+    height: 90%;
+}
+
+.box__pants > img {
+    transform: rotate(70deg);
+    height: 60%;
+}
+
+.box__jacket > img {
+    height: 60%;
+}
+
+.box__hat > img {
+    transform: rotate(0deg);
+    height: 60%;
+}
+
+.box__shoe > img {
+    height: 60%;
+}
+
+#box__img-iceskate {
+    transform: rotate(0deg);
+    height: 60%;
+}
+
+#box__img-skiis {
+    transform: rotate(75deg);
+    height: 70%;
+    margin-left: 15%;
+}

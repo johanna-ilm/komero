@@ -25,12 +25,12 @@
 }
 
 .button--primary {
-    background-color: #0285ee;
+    background-color: #305f72;
     color: #fff;
 }
 
 .button--primary:active {
-    background-color: #65b4ff;
+    background-color: #2e81a1;
 }
 
 .button--secondary {

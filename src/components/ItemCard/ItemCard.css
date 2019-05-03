@@ -1,6 +1,6 @@
 .itemcard {
-    padding: 1em;
-    margin: 0 1em 0.5em 1em;
+    display: flex;
+    margin: 0 1em 0.5em 1em; 
     border: 1px solid #ccc;
   }
   
@@ -17,4 +17,25 @@
   .itemcard__notes, .itemcard__season, .itemcard__year, .itemcard__price {
     font-size: 85%;
     color: #666;
+  }
+
+  .itemcard > div {
+    flex: 1 1 auto;
+    padding: 1em;
+  }
+
+  .itemcard__link {
+    max-width: 1em;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: #fbebe6;
+  }
+
+  .itemcard:hover .itemcard__link {
+    display: flex;
+  }
+
+  .itemcard__link a {
+    color: #000;
   }

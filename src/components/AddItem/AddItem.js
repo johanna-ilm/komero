@@ -10,7 +10,7 @@ function AddItem(props) {
         <Content>
             <div className="additem">
                 <h2>Lisää Komeroon</h2>
-                <ItemForm />
+                <ItemForm onFormSubmit={props.onFormSubmit} />
             </div>
 
         </Content >

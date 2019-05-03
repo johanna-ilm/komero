@@ -1,128 +1,201 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router';
+import uuid from 'uuid';
 
 import './ItemForm.css';
+import categories, { clothingSizes, shoeSizes } from './itemFormData';
 
 import Button from '../buttons';
 
-import jacket from '../../images/jacket.png';
-import pants from '../../images/pants.png';
-import snowsuit from '../../images/snowsuit.png';
-import shoes from '../../images/sneakers.png';
-import hat from '../../images/hat.png';
-import iceskate from '../../images/ice-skate.png';
+
+function ItemForm(props) {
+
+    const [data, setData] = useState(
+        props.data ? props.data : {
+            kategoria: "",
+            selite: "",
+            koko: "",
+            vari: "#ffffff",
+            kausi: "",
+            ostohinta: 0,
+            ostovuosi: "",
+            ostopaikka: "",
+            huomioita: ""
+        })
 
 
-class ItemForm extends Component {
+    // Jos valittu kategoria on kengät tai kausivälineet, koon valinnassa käytetään kenkäkokoja (muuten vaatekokoja)
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: {
-                tyyppi: "Vesi",
-                summa: 0,
-                maksupäivä: undefined,
-                kaudenalku: undefined,
-                kaudenloppu: undefined,
-                saaja: ""
 
-            }
-        };
-        this.handleInputChange = this.handleInputChange.bind(this);
+    const handleInputChange = e => {
+        const { name, value } = e.target
+        setData({ ...data, [name]: value })
     }
 
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            data: {
-                ...this.state.data,
-                [name]: value
-            }
-        });
+    const handleCancel = e => {
+        e.preventDefault();
+        props.history.goBack();
     }
 
-    render() {
-        return (
-            <form>
-                <div className="itemform">
-                    <div className="itemform__category">
-                        <div className="itemform__categorycontainer">
-                            <img src={jacket} alt="takki" className="itemform__categorylogo" />
-                        </div>
-                        <div className="itemform__categorycontainer">
-                            <img src={pants} alt="housut" className="itemform__categorylogo" />
-                        </div>
-                        <div className="itemform__categorycontainer">
-                            <img src={snowsuit} alt="haalari" className="itemform__categorylogo" />
-                        </div>
-                        <div className="itemform__categorycontainer">
-                            <img src={shoes} alt="kengät" className="itemform__categorylogo" />
-                        </div>
-                        <div className="itemform__categorycontainer">
-                            <img src={hat} alt="pipot, hanskat, kaulurit" className="itemform__categorylogo" />
-                        </div>
-                        <div className="itemform__categorycontainer">
-                            <img src={iceskate} alt="varusteet" className="itemform__categorylogo" />
-                        </div>
-                    </div>
-                    <div className="itemform__categorylabel">Valitse kategoria</div>
-                    <div className="itemform__row">
-                        <div>
-                            <label for="tyyppi">Kulutyyppi</label>
-                            <select name="tyyppi" value={this.state.data.tyyppi} onChange={this.handleInputChange}>
-                                <option value="Puhelin">Puhelin</option>
-                                <option value="Sähkö">Sähkö</option>
-                                <option value="Vesi">Vesi</option>
-                                <option value="Vero">Vero</option>
-                            </select>
-                        </div>
-                    </div>
+    const handleSubmit = e => {
+        e.preventDefault();
+        let newData = Object.assign({}, data);
+        newData.ostohinta = parseFloat(newData.ostohinta);
+        newData.id = newData.id ? newData.id : uuid.v4();
+        props.onFormSubmit(newData);
+        props.history.push("/");
+    }
 
-                    <div className="itemform__row">
-                        <div>
-                            <label for="summa">Summa</label>
-                            <input type="number" name="summa" step="0.01" value={this.state.data.summa} onChange={this.handleInputChange} />
-                        </div>
-                        <div>
-                            <label for="maksupaiva">Maksupäivä</label>
-                            <input type="date" name="maksupaiva" value={this.state.data.maksupaiva} onChange={this.handleInputChange} />
-                        </div>
-                    </div>
+    const handleItemDelete = e => {
+        e.preventDefault();
+        props.onDeleteItem(data.id);
+        props.history.push("/");
+    }
 
-                    <div className="itemform__row">
-                        <div>
-                            <label for="kaudenalku">Laskutuskauden alku</label>
-                            <input type="date" name="kaudenalku" size="10" value={this.state.data.kaudenalku} onChange={this.handleInputChange} />
-                        </div>
-                        <div>
-                            <label for="kaudenloppu">Laskutuskauden loppu</label>
-                            <input type="date" name="kaudenloppu" size="10" value={this.state.data.kaudenloppu} onChange={this.handleInputChange} />
-                        </div>
-                    </div>
 
-                    <div className="itemform__row">
-                        <div>
-                            <label for="saaja">Laskuttaja</label>
-                            <input type="text" name="saaja" value={this.state.data.saaja} onChange={this.handleInputChange} />
-                        </div>
-                    </div>
-                    <div className="itemform__row">
-                        <div>
-                            <Button>PERUUTA</Button>
-                        </div>
-                        <div>
-                            <Button primary>LISÄÄ</Button>
-                        </div>
-                    </div>
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div className="itemform">
+
+                <div className="itemform__categorybar">
+                    {/* Mäpätään categories-objektien arvot radio buttoneiksi. Varsinaiset radio buttonit piilotettu tyylimääritteissä.*/}
+                    {categories.map(item =>
+                        <label key={item.category}>
+                            <div className="itemform__categorywrapper">
+                                <input
+                                    type="radio"
+                                    name="kategoria"
+                                    value={item.category}
+                                    checked={data.kategoria === item.category}
+                                    onChange={handleInputChange}
+                                />
+                                <img src={item.imgsrc} alt={item.category} title={item.category} />
+                            </div>
+                        </label>)
+                    }
 
                 </div>
-            </form>
+                {/* Pyytää valitsemaan kategorian. Jos kategoria on jo valittu, kertoo valitun kategorian nimen.*/}
+                <div className="itemform__categorylegend">{data.kategoria ? "Valittu kategoria: " + data.kategoria : "Valitse kategoria:"}</div>
 
-        );
-    }
+                <div className="itemform__row">
+                    <div>
+                        <label htmlFor="selite">Selite:</label>
+                        <input
+                            type="text"
+                            name="selite"
+                            value={data.selite}
+                            onChange={handleInputChange} />
+                    </div>
+                    <div id="itemform__colorpicker">
+                        <label htmlFor="vari">Väri:</label>
+                        <input
+                            type="color"
+                            name="vari"
+                            value={data.vari}
+                            onChange={handleInputChange} />
+                    </div>
+                </div>
+
+                <div className="itemform__row">
+                    <div className="itemform__row__2cells">
+                        <label htmlFor="itemSize">Koko:</label>
+                        <select
+                            name="koko"
+                            value={data.koko}
+                            onChange={handleInputChange}
+                            required>
+                            <option value="" disabled>Valitse koko</option>
+                            {(data.kategoria === "Kengät" || data.kategoria === "Kausivälineet" ? shoeSizes : clothingSizes).map(item =>
+                                <option value={item} key={item}>{item}</option>
+                            )
+                            }
+                        </select>
+                    </div>
+                    <div className="itemform__row__2cells">
+                        <label htmlFor="kausi">Kausi:</label>
+                        <select
+                            name="kausi"
+                            value={data.kausi}
+                            onChange={handleInputChange}
+                            required>
+                            <option value="" disabled>Valitse kausi</option>
+                            <option value="kesa">Kesä</option>
+                            <option value="valikausi">Välikausi</option>
+                            <option value="talvi">Talvi</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className="itemform__row">
+                    <div>
+                        <label htmlFor="ostohinta">Ostohinta</label>
+                        <input
+                            type="number"
+                            name="ostohinta"
+                            step="0.01"
+                            value={data.ostohinta}
+                            onChange={handleInputChange} />
+                    </div>
+                    <div>
+                        <label htmlFor="itemPurchaseYear">Ostovuosi</label>
+                        <input
+                            type="text"
+                            name="ostovuosi"
+                            value={data.ostovuosi}
+                            onChange={handleInputChange} />
+                    </div>
+                </div>
+
+                <div className="itemform__row">
+                    <div>
+                        <label htmlFor="ostopaikka">Ostopaikka:</label>
+                        <input
+                            type="text"
+                            name="ostopaikka"
+                            value={data.ostopaikka}
+                            onChange={handleInputChange} />
+
+                    </div>
+                </div>
+
+                <div className="itemform__row">
+                    <div>
+                        <label htmlFor="huomioita">Huomioita:</label>
+                        <textarea
+                            name="huomioita"
+                            value={data.huomioita}
+                            onChange={handleInputChange} >
+                        </textarea>
+                    </div>
+                </div>
+
+                <div className="itemform__row">
+                    <div>
+                        <Button onClick={handleCancel}>PERUUTA</Button>
+                    </div>
+                    <div>
+                        <Button type="submit" primary>{data.id ? "TALLENNA" : "LISÄÄ"}</Button>
+                    </div>
+                </div>
+
+                {props.onDeleteItem ?
+                    <div className="itemform__row">
+                        <div>
+                            <Button onClick={handleItemDelete}>POISTA</Button>
+                        </div>
+                        <div></div>
+                    </div>
+                    : ""}
+
+
+            </div>
+        </form>
+
+    );
+
 
 }
 
-export default ItemForm;
+export default withRouter(ItemForm);

@@ -1,32 +1,55 @@
 .itemform {
     display: flex;
+    width: 100%;
     flex-direction: column;
 }
 
-.itemform__category {
+.itemform__categorybar {
     display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-self: center;
     justify-content: center;
+    align-items: center;
 }
 
-.itemform__categorycontainer {
+.itemform__categorywrapper {
+    background-color: #fbebe6;
     display: flex;
-    height: 3.2em;
-    width: 3.2em;
-    margin: 0 0.3em 0.5em;
-    border-color: grey;
-    border-style: solid;
-    border-width: 1px;
+    height: 3.8em;
+    width: 3.8em;
+    padding: 7%;
+    margin: 0.3rem; 
     border-radius: 50%;
+    justify-content: center;
+    align-items: center;
 }
 
-.itemform__categorylogo {
-    height: 2em;
-    margin: auto;
-    opacity: 0.8;  
+.itemform__categorywrapper input {
+    display: none;
 }
 
-.itemform__categorylabel {
+.itemform__categorywrapper img {
+    align-self: center;
+    opacity: 0.6;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    height: 65%; 
+}
+
+.itemform__categorywrapper img:hover {
+    opacity: 1;
+}
+
+input[type=radio]:checked + img {
+    opacity: 1;
+} 
+
+.itemform__categorylegend {
     text-align: center;
+    font-size: 0.8em;
+    margin: 0.5em 0 1em 0;
 }
 
 .itemform__row {
@@ -36,29 +59,31 @@
 .itemform__row > div {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     margin: 0.5em 0.3em;
     flex: 1 1 auto;
 }
 
-.itemform input, .itemform select {
+#itemform__colorpicker input {
+    padding: 1px 2px;
+    height: calc(100% - 0.5rem);
+    min-width: 2em;
+}
+
+.itemform__row__2cells {
+    width: 50%;
+}
+
+.itemform input, .itemform select, .itemform textarea {
     padding: 0.5em;
     border: none;
     background-color: #fbebe6;
     border-radius: 0.2em;
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-family: 'Roboto', sans-serif;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Tekee lomakkeen osasista samoilla mitoilla samankokoisia.  */
     outline: none;
     width: 100%;
-}
-
-.itemform input[type="date"]::-webkit-clear-button {
-    display: none;
-}
-
-.itemform input[type="date"]::-webkit-inner-spin-button {
-    display: none;
 }
 
 .itemform label {

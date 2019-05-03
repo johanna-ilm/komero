@@ -9,17 +9,17 @@ import { FloatingButton } from '../buttons';
 
 
 function Items(props) {
+
+  let rows = props.data.map(item => {
+    return (
+      <ItemCard data={item} key={item.id} />
+    )
+  });
+
   return (
     <Content>
       <ItemHeader />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
+      {rows}
       <Link to="/add"><FloatingButton secondary>+</FloatingButton></Link>
     </Content>
 
