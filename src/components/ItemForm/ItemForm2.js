@@ -21,18 +21,15 @@ function ItemForm(props) {
             ostovuosi: "",
             ostopaikka: "",
             huomioita: ""
-        });
-
-    const index = categories.findIndex(item => item.category === data.kategoria);
+        })
 
 
     // Jos valittu kategoria on kengät tai kausivälineet, koon valinnassa käytetään kenkäkokoja (muuten vaatekokoja)
 
 
     const handleInputChange = e => {
-        const { name, value } = e.target;
-        setData({ ...data, [name]: value });
-        console.log(data.kausi);
+        const { name, value } = e.target
+        setData({ ...data, [name]: value })
     }
 
     const handleCancel = e => {
@@ -43,17 +40,16 @@ function ItemForm(props) {
     const handleSubmit = e => {
         e.preventDefault();
         let newData = Object.assign({}, data);
-        newData.koko = parseInt(newData.koko);
         newData.ostohinta = parseFloat(newData.ostohinta);
         newData.id = newData.id ? newData.id : uuid.v4();
         props.onFormSubmit(newData);
-        props.history.push("/list/" + categories[index].url);
+        props.history.push("/");
     }
 
     const handleItemDelete = e => {
         e.preventDefault();
         props.onDeleteItem(data.id);
-        props.history.push("/list/" + categories[index].url);
+        props.history.push("/");
     }
 
 
@@ -85,7 +81,7 @@ function ItemForm(props) {
 
                 <div className="itemform__row">
                     <div>
-                        <label htmlFor="nimike">Nimike:</label>
+                        <label htmlFor="nimike">nimike:</label>
                         <input
                             type="text"
                             name="nimike"

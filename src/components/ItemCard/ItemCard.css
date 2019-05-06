@@ -1,36 +1,95 @@
 .itemcard {
+  display: flex;
+  margin: 0 1em 0.8em 1em;
+  border-bottom: 1px solid #ccc;
+  color: #555;
+}
+
+  .itemcard__flex {
     display: flex;
-    margin: 0 1em 0.5em 1em; 
-    border: 1px solid #ccc;
-  }
-  
-  .itemcard__row {
-   display: flex;
-   justify-content: space-between;
-  }
-  
-  .itemcard__label, .itemcard__size {
-    font-weight: bold;
-    font-size: 1.2em;
-  }
-  
-  .itemcard__notes, .itemcard__season, .itemcard__year, .itemcard__price {
-    font-size: 85%;
-    color: #666;
+    flex-direction: column;
   }
 
-  .itemcard > div {
+
+/* Vasemmanpuoleinen div */
+
+  .itemcard__color-size-div {
+    align-items: center;
+    margin: 0.3em 0 0.7em 0;
+    flex: 0 0 10%; 
+  }
+
+    .itemcard__color {
+      padding: 0 0.4em;
+      margin-bottom: 0.5em;
+    }
+
+      .itemcard__color > div {
+        width: 1.2em;
+        height: 1.2em;
+        border-radius: 50%;
+        align-self: center;
+        opacity: 0.9;
+      }
+
+    .itemcard__size {
+      font-family: "Open Sans", sans-serif;
+      font-weight: bold;
+      font-size: 1em;
+    }
+
+
+/* Keskimmäinen div */
+
+  .itemcard__label-notes-div {
     flex: 1 1 auto;
-    padding: 1em;
+    margin: 0 1em;
   }
 
+    .itemcard__label {
+      font-family: "Open Sans", sans-serif;
+      font-size: 1.2em;
+      margin-bottom: 0.2em; 
+    }
+
+    .itemcard__notes {
+      font-size: 85%;
+      color: #666;
+      margin: 0 0 1em 1em;
+    }
+
+
+/* Oikeanpuoleinen div */
+
+  .itemcard__symbols {
+    flex: 0 0 12%; 
+    align-items: center;
+    padding: 0.1em 0.2em 0 0.3em;
+  }
+
+    .itemcard__symbols-img-wrapper {
+      align-items: center;
+    }
+
+    .itemcard__symbols-img {
+      height: 2em;
+      object-fit: contain;
+      align-self: center;
+      opacity: 0.6;
+    }
+    
+  
+
+
+  /* Linkkinuoli muokkaussivulle, joka tulee näkyviin, kun osoitin on itemcardin päällä */
   .itemcard__link {
-    max-width: 1em;
-    display: none;
+    flex: 1 1 auto;
+    max-width: 2em;
+    background-color: #fbebe6;
     justify-content: center;
     align-items: center;
-    background-color: #fbebe6;
-  }
+    display: none;
+    }
 
   .itemcard:hover .itemcard__link {
     display: flex;

@@ -24,13 +24,13 @@ function Home(props) {
             <div className="home">
                 <div className="box__lamp"><img src={lamp} alt="valaisin" /></div>
                 <div className="box__grid">
-                    <div className="box box__snowsuit"><img src={snowsuit} alt="Haalarit" title="Haalarit" id="box__img-snowsuit" /></div>
-                    <div className="box box__pants"><img src={pants} alt="Housut" title="Housut" id="box__img-pants" /></div>
-                    <div className="box box__jacket"><img src={jacket} alt="Takit" title="Takit" id="box__img-jacket" /></div>
-                    <div className="box box__hat"><img src={hat} alt="Asusteet" title="Asusteet" id="box__img-hat" /></div>
-                    <div className="box box__shoe"><img src={shoes} alt="Kengät" title="Kengät" id="box__img-shoe" /></div>
-                    <div className="box box__iceskate"><img src={iceskate} alt="Kausivälineet" title="Kausivälineet" id="box__img-iceskate" />
-                        <img src={skiis} alt="Kausivälineet" title="Kausivälineet" id="box__img-skiis" /></div>
+                    <Link className="box box__snowsuit" to="/list/haalarit"><img src={snowsuit} alt="Haalarit" title="Haalarit" /></Link>
+                    <Link className="box box__pants" to="/list/housut"><img src={pants} alt="Housut" title="Housut" /></Link>
+                    <Link className="box box__jacket" to="/list/takit"><img src={jacket} alt="Takit" title="Takit" /></Link>
+                    <Link className="box box__hat" to="/list/asusteet"><img src={hat} alt="Asusteet" title="Asusteet" /></Link>
+                    <Link className="box box__shoe" to="/list/kengat"><img src={shoes} alt="Kengät" title="Kengät" /></Link>
+                    <Link className="box box__iceskate" to="/list/kausivalineet"><img src={iceskate} alt="Kausivälineet" title="Kausivälineet" id="box__img-iceskate" />
+                        <img src={skiis} alt="Kausivälineet" title="Kausivälineet" id="box__img-skiis" /></Link>
                 </div>
 
 

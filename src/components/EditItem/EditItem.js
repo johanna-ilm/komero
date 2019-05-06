@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Content from '../Content/Content';
-import ItemForm from '../ItemForm/ItemForm2';
+import ItemForm from '../ItemForm/ItemForm';
 
 import './EditItem.css';
 
