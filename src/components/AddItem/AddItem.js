@@ -9,7 +9,9 @@ function AddItem(props) {
     return (
         <Content>
             <div className="additem">
-                <h2>Lisää Komeroon</h2>
+                <div className="additem__header">
+                    <h2>Lisää Komeroon</h2>
+                </div>
                 <ItemForm onFormSubmit={props.onFormSubmit} />
             </div>
 

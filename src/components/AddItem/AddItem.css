@@ -1,10 +1,13 @@
 .additem {
-    padding: 1.5em;
+    padding: 0 1.5rem 1.5rem 1.5rem;
 }
 
-.additem h2 {
+.additem__header {
+    margin: 2rem 0 3rem 0.5rem;
+}
+
+.additem__header h2 {
     font-family: 'Permanent Marker', cursive;
     font-size: 2em;
-    margin-bottom: 1em;
 }
 

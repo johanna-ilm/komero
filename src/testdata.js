@@ -21,7 +21,7 @@ const testdata = [
         ostohinta: 110.00,
         ostovuosi: "2017",
         ostopaikka: "Reima.com",
-        huomioita: "-"
+        huomioita: ""
     },
     {
         id: "3",
@@ -45,7 +45,7 @@ const testdata = [
         ostohinta: 110.00,
         ostovuosi: "2017",
         ostopaikka: "Jesper Junior",
-        huomioita: "-"
+        huomioita: ""
     }
 ];
 

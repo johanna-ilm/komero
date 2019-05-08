@@ -14,7 +14,9 @@ function EditItem(props) {
     return (
         <Content>
             <div className="edititem">
-                <h2>Muokkaa Komeroa</h2>
+                <div className="edititem__header">
+                    <h2>Muokkaa tietoja</h2>
+                </div>
                 <ItemForm
                     onFormSubmit={props.onFormSubmit}
                     data={itemData}

@@ -1,0 +1,131 @@
+/* Filter top wrappers */
+
+.items__filter-top-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2em 0 0.5em 0;
+}
+
+.items__filter-wrapper {
+    width: 90%;
+    align-self: center;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 1.5em;
+}
+
+/* Filter content wrappers */
+
+.items__filter-legend {
+    flex: 1 1 auto;
+    font-size: 85%;
+    color: #666;
+    text-align: right;
+    margin-right: 1.5em;
+}
+
+.items__filter-bar {
+    display: flex;
+    flex: 0 0 12rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* Filter icon wrappers */
+
+.items__filter-img-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.items__filter-img-wrapper input {
+    display: none;
+}
+
+.items__filter-img-wrapper--round {
+    background-color: #fdece7;
+    height: 2.5rem;
+    width: 2.5rem;
+    padding: 0.2rem;
+    border-radius: 50%;
+}
+
+.items__filter-img-wrapper--no-background {
+    padding: 0;
+    height: 1.4rem;
+    width: 1.4rem;
+}
+
+
+/* Filter icons */
+
+.items__filter-img {
+    align-self: center;
+    opacity: 0.6;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    height: 65%; 
+}
+
+.items__filter-img:hover {
+    opacity: 1;
+}
+
+input[type=radio]:checked + .items__filter-img--black-when-selected {
+    opacity: 0.9;
+}
+
+input[type=radio]:checked + .items__filter-img--no-change-when-selected {
+    opacity: 0.6;
+}
+
+/* Filter select list */
+
+.items__filter-bar select {
+    padding: 0.5em;
+    border: none;
+    background-color: #fdece7;
+    border-radius: 0.2em;
+    font-size: 0.9em;
+    font-family: 'Roboto', sans-serif;
+    outline: none;
+    width: 70%;
+}
+
+/* Button for clearing size filter */
+
+.items__button {
+    background-color: #fff;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    outline: none;
+    box-sizing: initial;
+}
+
+/* Divider */
+
+.items__divider {
+    align-self: center;
+    width: 90%;
+    margin: 1rem 0;
+    border-bottom: 1px solid #2e81a1;
+}
+
+/* Selected filters div */
+
+.items__filter-wrapper--left {
+    justify-content: flex-start;
+    align-items: baseline;
+    width: 80%;
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+}

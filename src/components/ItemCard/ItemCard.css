@@ -1,6 +1,6 @@
 .itemcard {
   display: flex;
-  margin: 0 1em 0.8em 1em;
+  margin: 0 1em;
   border-bottom: 1px solid #ccc;
   color: #555;
 }
@@ -13,18 +13,17 @@
 
 /* Vasemmanpuoleinen div */
 
-  .itemcard__color-size-div {
+  .itemcard__color-div {
     align-items: center;
-    margin: 0.3em 0 0.7em 0;
+    margin-top: 1.3em;
     flex: 0 0 10%; 
   }
 
     .itemcard__color {
       padding: 0 0.4em;
-      margin-bottom: 0.5em;
     }
 
-      .itemcard__color > div {
+      .itemcard__color-dot {
         width: 1.2em;
         height: 1.2em;
         border-radius: 50%;
@@ -32,59 +31,56 @@
         opacity: 0.9;
       }
 
-    .itemcard__size {
-      font-family: "Open Sans", sans-serif;
-      font-weight: bold;
-      font-size: 1em;
-    }
+      .itemcard__color-dot--border {
+        border: 1px solid #ccc;
+      }
 
 
 /* Keskimmäinen div */
 
   .itemcard__label-notes-div {
     flex: 1 1 auto;
-    margin: 0 1em;
+    margin: 1em 1em 0 1em;
   }
 
     .itemcard__label {
       font-family: "Open Sans", sans-serif;
       font-size: 1.2em;
-      margin-bottom: 0.2em; 
+      margin-bottom: 0.3em; 
     }
 
     .itemcard__notes {
       font-size: 85%;
       color: #666;
-      margin: 0 0 1em 1em;
+      margin: 0 0 0.7em 1em;
     }
 
+    .itemcard__label-notes-div--margin {
+      margin-bottom: 0.8em;
+    }
 
 /* Oikeanpuoleinen div */
 
-  .itemcard__symbols {
-    flex: 0 0 12%; 
-    align-items: center;
-    padding: 0.1em 0.2em 0 0.3em;
+  .itemcard__size-div {
+    flex: 1 1 auto;
+    align-items: flex-end;
+    margin-top: 1em;
+    padding: 0.15em 1em 0 0.3em;
   }
 
-    .itemcard__symbols-img-wrapper {
-      align-items: center;
-    }
-
-    .itemcard__symbols-img {
-      height: 2em;
-      object-fit: contain;
-      align-self: center;
-      opacity: 0.6;
-    }
-    
+  .itemcard__size {
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    font-size: 1.1em;
+  }   
   
 
-
   /* Linkkinuoli muokkaussivulle, joka tulee näkyviin, kun osoitin on itemcardin päällä */
+  
   .itemcard__link {
     flex: 1 1 auto;
     max-width: 2em;
+    min-width: 2em;
     background-color: #fbebe6;
     justify-content: center;
     align-items: center;

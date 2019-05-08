@@ -11,8 +11,8 @@ const Button = ({ className = "", primary, secondary, ...props }) => {
             className={classNames([
                 "button",
                 className,
-                primary ? "button--primary" : "",
-                secondary ? "button--secondary" : ""
+                primary ? "button--rectangle button--primary" : "",
+                secondary ? "button--rectangle button--secondary" : ""
             ])}
             {...props} />
     );

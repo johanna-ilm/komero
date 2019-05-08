@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import uuid from 'uuid';
 
 import './ItemForm.css';
-import categories, { clothingSizes, shoeSizes } from './itemFormData';
+import { categories, clothingSizes, shoeSizes } from './itemFormData';
 
 import Button from '../buttons';
 
@@ -25,14 +25,9 @@ function ItemForm(props) {
 
     const index = categories.findIndex(item => item.category === data.kategoria);
 
-
-    // Jos valittu kategoria on kengät tai kausivälineet, koon valinnassa käytetään kenkäkokoja (muuten vaatekokoja)
-
-
     const handleInputChange = e => {
         const { name, value } = e.target;
         setData({ ...data, [name]: value });
-        console.log(data.kausi);
     }
 
     const handleCancel = e => {
@@ -89,8 +84,11 @@ function ItemForm(props) {
                         <input
                             type="text"
                             name="nimike"
+                            spellCheck="false"
+                            className="itemform__div--bold"
                             value={data.nimike}
-                            onChange={handleInputChange} />
+                            onChange={handleInputChange}
+                            required />
                     </div>
                     <div id="itemform__colorpicker">
                         <label htmlFor="vari">Väri:</label>
@@ -103,13 +101,14 @@ function ItemForm(props) {
                 </div>
 
                 <div className="itemform__row">
-                    <div className="itemform__row__2cells">
+                    <div className="itemform__row-2cells">
                         <label htmlFor="itemSize">Koko:</label>
                         <select
                             name="koko"
                             value={data.koko}
                             onChange={handleInputChange}
                             required>
+                            {/* Jos valittu kategoria on kengät tai kausivälineet, koon valinnassa käytetään kenkäkokoja (muuten vaatekokoja) */}
                             <option value="" disabled>Valitse koko</option>
                             {(data.kategoria === "Kengät" || data.kategoria === "Kausivälineet" ? shoeSizes : clothingSizes).map(item =>
                                 <option value={item} key={item}>{item}</option>
@@ -117,7 +116,7 @@ function ItemForm(props) {
                             }
                         </select>
                     </div>
-                    <div className="itemform__row__2cells">
+                    <div className="itemform__row-2cells">
                         <label htmlFor="kausi">Kausi:</label>
                         <select
                             name="kausi"
@@ -134,7 +133,7 @@ function ItemForm(props) {
 
                 <div className="itemform__row">
                     <div>
-                        <label htmlFor="ostohinta">Ostohinta</label>
+                        <label htmlFor="ostohinta">Ostohinta (€):</label>
                         <input
                             type="number"
                             name="ostohinta"
@@ -143,7 +142,7 @@ function ItemForm(props) {
                             onChange={handleInputChange} />
                     </div>
                     <div>
-                        <label htmlFor="itemPurchaseYear">Ostovuosi</label>
+                        <label htmlFor="itemPurchaseYear">Ostovuosi:</label>
                         <input
                             type="text"
                             name="ostovuosi"
@@ -158,6 +157,7 @@ function ItemForm(props) {
                         <input
                             type="text"
                             name="ostopaikka"
+                            spellCheck="false"
                             value={data.ostopaikka}
                             onChange={handleInputChange} />
 
@@ -169,30 +169,27 @@ function ItemForm(props) {
                         <label htmlFor="huomioita">Huomioita:</label>
                         <textarea
                             name="huomioita"
+                            rows="3"
+                            spellCheck="false"
                             value={data.huomioita}
                             onChange={handleInputChange} >
                         </textarea>
                     </div>
                 </div>
 
-                <div className="itemform__row">
+                <div className="itemform__button-row">
                     <div>
-                        <Button onClick={handleCancel}>PERUUTA</Button>
+                        <Button onClick={handleCancel} secondary>Peruuta</Button>
                     </div>
                     <div>
-                        <Button type="submit" primary>{data.id ? "TALLENNA" : "LISÄÄ"}</Button>
+                        <Button type="submit" primary>{data.id ? "Tallenna" : "Lisää"}</Button>
                     </div>
-                </div>
-
-                {props.onDeleteItem ?
-                    <div className="itemform__row">
+                    {props.onDeleteItem ?
                         <div>
-                            <Button onClick={handleItemDelete}>POISTA</Button>
+                            <Button onClick={handleItemDelete} secondary>Poista</Button>
                         </div>
-                        <div></div>
-                    </div>
-                    : ""}
-
+                        : ""}
+                </div>
 
             </div>
         </form>
