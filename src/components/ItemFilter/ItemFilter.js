@@ -93,7 +93,7 @@ function ItemFilter(props) {
                     {filter.kausi || filter.koko ? "" : "Kaikki"}
                     {filter.kausi ? filter.kausi : ""}
                     {filter.kausi && filter.koko ? ", " : ""}
-                    {filter.koko ? filter.koko + " cm" : ""}
+                    {filter.koko ? filter.koko : ""}
                 </div>
 
                 <div className="items__divider"></div>

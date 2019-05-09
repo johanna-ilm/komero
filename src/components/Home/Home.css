@@ -48,7 +48,11 @@
 }
 
 .box:hover {
-    transform: translate(5px, 0px);
+    border-color: #f0b7a4;
+}
+
+.box:hover > img {
+    opacity: 0.7;
 }
 
 .box__snowsuit {

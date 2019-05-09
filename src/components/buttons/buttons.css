@@ -1,5 +1,5 @@
 .button {
-    background-color: #ccc;
+    background-color: #fff;
     color: #000;
     border: none;
     outline: none;
@@ -12,8 +12,7 @@
 }
 
 .button:active {
-    box-shadow: rgba(0,0,0,0.5) 0px 2px 5px;
-    background-color: #999;
+    background-color: none;
 }
 
 .button:hover {
@@ -21,33 +20,32 @@
 }
 
 .button--rectangle {
-    padding: 0.1em 0.7em 0.1em 0.9em;
-    margin: 0.6em 0.4em;
+    margin: 0 0.4em 0.3em 0.4em;
     min-width: 8rem;
-    border-radius: 0.1em;
-    box-shadow: rgba(0,0,0,0.5) 0px 1px 2px;
     font-family: "Permanent Marker", cursive;
     font-weight: bold;
-    font-size: 1.2rem;
-    letter-spacing: 0.2em;
+    font-size: 1.7rem;
+    opacity: 0.8;
 }
 
 .button--primary {
-    background-color: #f18c8e;
-    color: #fff;
+    background-color: #fff;
+    color: #f18c8e;
 }
 
 .button--primary:active {
-    background-color: #f0b7a4;
+    color: #f0b7a4;
+    opacity: 1;
 }
 
 .button--secondary {
-    background-color: #999;
-    color: #fff;
+    background-color: #fff;
+    color: #999;
 }
 
 .button--secondary:active {
-    background-color: #cfcfcf;
+    color: #cfcfcf;
+    opacity: 1;
 }
 
 .button:disabled {

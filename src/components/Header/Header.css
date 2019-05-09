@@ -14,3 +14,8 @@
       font-family: 'Permanent Marker', cursive;
       margin-right: 0.8em;
     }
+
+    .header a {
+      text-decoration: none;
+      color: #fff;
+    }

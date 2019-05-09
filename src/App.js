@@ -46,10 +46,8 @@ function App() {
         <Header />
         <Route path="/" exact component={Home} />
         <Route path="/list/:selectedCategory" render={(props) =>
-          <Items
-            data={data}
-            {...props} />} />
-        <Route path="/stats" component={Stats} />
+          <Items data={data} {...props} />} />
+        <Route path="/stats" render={() => <Stats data={data} kokoData={data.koko} />} />
         <Route path="/add" render={() => <AddItem onFormSubmit={handleFormSubmit} />} />
         <Route path="/edit/:id" render={(props) =>
           <EditItem

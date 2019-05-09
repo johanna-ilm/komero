@@ -24,23 +24,21 @@ function Items(props) {
 
 
   return (
-    <div>
-      <Content>
+    <Content>
 
-        <div className="items__header">
-          <h2 className="items__header-h2">{category}</h2>
+      <div className="items__header">
+        <h2 className="items__header-h2">{category}</h2>
+      </div>
+
+      <ItemFilter data={props.data} category={category} url={url} />
+
+      <div className="items__wrapper">
+        <div className="items__fab-wrapper">
+          <Link to="/add"><FloatingButton>+</FloatingButton></Link>
         </div>
+      </div>
 
-        <ItemFilter data={props.data} category={category} url={url} />
-
-        <div className="items__wrapper">
-          <div className="items__fab-wrapper">
-            <Link to="/add"><FloatingButton>+</FloatingButton></Link>
-          </div>
-        </div>
-
-      </Content >
-    </div>
+    </Content >
   );
 }
 
