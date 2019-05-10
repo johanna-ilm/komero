@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './ItemCard.css';
 
 import ArrowRight from '@material-ui/icons/ArrowRight';
+import { accessoriesSizes } from '../ItemForm/itemFormData';
 
 function ItemCard(props) {
 
@@ -13,6 +14,12 @@ function ItemCard(props) {
   // Huomioita-div tulee näkyviin vain, jos huomioita on
   const notes = props.data.huomioita ?
     <div className="itemcard__notes">{props.data.huomioita}</div> : "";
+
+  let sizeLabel = props.data.koko;
+  const indexOfSize = accessoriesSizes.findIndex(item => item.optionValue === parseInt(props.data.koko));
+  if (indexOfSize > 0) {
+    sizeLabel = accessoriesSizes[indexOfSize].optionLabel;
+  };
 
 
   return (
@@ -26,12 +33,13 @@ function ItemCard(props) {
 
       <div className="itemcard__label-notes-div itemcard__flex">
         <div className="itemcard__label">{props.data.nimike}</div>
+        {/* Tähän väliin tulee tallennettuja huomioita, jos niitä on */}
         {notes}
         <div className="itemcard__label-notes-div--margin"></div>
       </div>
 
       <div className="itemcard__size-div itemcard__flex">
-        <div className="itemcard__size">{props.data.koko === 999 ? "Muu" : props.data.koko}</div>
+        <div className="itemcard__size">{sizeLabel}</div>
       </div>
 
       <div className="itemcard__link itemcard__flex">

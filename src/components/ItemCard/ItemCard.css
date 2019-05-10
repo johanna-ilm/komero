@@ -11,7 +11,7 @@
   }
 
 
-/* Vasemmanpuoleinen div */
+/* Vasemmanpuoleinen div - väripallura */
 
   .itemcard__color-div {
     align-items: center;
@@ -33,10 +33,11 @@
 
       .itemcard__color-dot--border {
         border: 1px solid #ccc;
+        transform: scale(0.9);
       }
 
 
-/* Keskimmäinen div */
+/* Keskimmäinen div - nimike ja huomioita */
 
   .itemcard__label-notes-div {
     flex: 1 1 auto;
@@ -59,19 +60,21 @@
       margin-bottom: 0.8em;
     }
 
-/* Oikeanpuoleinen div */
+/* Oikeanpuoleinen div - koko */
 
   .itemcard__size-div {
     flex: 1 1 auto;
     align-items: flex-end;
+    min-width: 2em;
     margin-top: 1em;
-    padding: 0.15em 1em 0 0.3em;
+    padding: 0.15em 1em 0 0.8em;
   }
 
   .itemcard__size {
     font-family: "Open Sans", sans-serif;
     font-weight: bold;
     font-size: 1.1em;
+    text-align: right;
   }   
   
 

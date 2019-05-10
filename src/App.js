@@ -16,9 +16,10 @@ function App() {
 
   const [data, setData] = useState([]);
 
-  const dbRef = firebase.firestore();
-  let refData = dbRef.collection('data');
+  let refData = firebase.firestore().collection('data');
 
+  // Sortataan ja haetaan data Firestoresta. Tallennetaan haettu data state-muuttujaan. 
+  // Suoritetaan kerran komponentin renderöidyttyä (mount).
   useEffect(() => {
     refData.orderBy("koko").onSnapshot((docs) => {
       let data = [];
@@ -29,31 +30,14 @@ function App() {
       setData(data);
     });
   }, []); // [] on tärkeä! Muuten useEffect suoritetaan uudestaan ja uudestaan. 
-  // Nyt suoritetaan vain kerran komponentin renderöidyttyä.
+
 
   const handleFormSubmit = newData => {
     refData.doc(newData.id).set(newData);
-
-    /* let storedData = data.slice();
-    const index = storedData.findIndex(item => item.id === newData.id);
-    if (index >= 0) {
-      storedData[index] = newData;
-    } else {
-      storedData.push(newData);
-    }
-    storedData.sort((a, b) => {
-      const aSize = parseInt(a.koko);
-      const bSize = parseInt(b.koko);
-      return aSize - bSize;
-    });
-    setData(storedData); */
   }
 
   const handleItemDelete = id => {
     refData.doc(id).delete().then().catch(error => { console.error("Virhe tietoa poistettaessa: ", error) });
-    /*     let storedData = data.slice();
-        storedData = storedData.filter(item => item.id !== id);
-        setData(storedData); */
   }
 
 

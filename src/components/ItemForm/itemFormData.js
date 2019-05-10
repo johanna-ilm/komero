@@ -4,7 +4,6 @@ import snowsuit from '../../images/snowsuit.png';
 import shoes from '../../images/sneakers.png';
 import hat from '../../images/winter-hat.png';
 import iceskate from '../../images/ice-skate.png';
-import door from '../../images/opened-door-aperture.png';
 
 import sun from '../../images/sun.png';
 import rain from '../../images/rain.png';
@@ -49,7 +48,6 @@ const categories = [
 const topCategory = [
     {
         category: "Koko Komero",
-        imgsrc: door,
         url: "koko_komero"
     }
 ];
@@ -272,43 +270,43 @@ const accessoriesSizes = [
         optionValue: 54
     },
     {
-        optionLabel: "0-6 kk",
+        optionLabel: "0-6kk",
         optionValue: 0.1
     },
     {
-        optionLabel: "6-12 kk",
+        optionLabel: "6-12kk",
         optionValue: 0.5
     },
     {
-        optionLabel: "1-2 v.",
+        optionLabel: "1-2v",
         optionValue: 1
     },
     {
-        optionLabel: "2-3 v.",
+        optionLabel: "2-3v",
         optionValue: 2
     },
     {
-        optionLabel: "3-4 v.",
+        optionLabel: "3-4v",
         optionValue: 3
     },
     {
-        optionLabel: "4-5 v.",
+        optionLabel: "4-5v",
         optionValue: 4
     },
     {
-        optionLabel: "5-6 v.",
+        optionLabel: "5-6v",
         optionValue: 5
     },
     {
-        optionLabel: "6-8 v.",
+        optionLabel: "6-8v",
         optionValue: 6
     },
     {
-        optionLabel: "8-10 v.",
+        optionLabel: "8-10v",
         optionValue: 8
     },
     {
-        optionLabel: "10-12 v.",
+        optionLabel: "10-12v",
         optionValue: 10
     },
     {

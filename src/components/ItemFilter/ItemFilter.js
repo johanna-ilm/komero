@@ -73,8 +73,9 @@ function ItemFilter(props) {
         )
     });
 
+
     return (
-        <div>
+        <div className="items">
             <div className="items__filter-top-wrapper">
 
                 {/* Suodata kauden mukaan */}
@@ -123,10 +124,10 @@ function ItemFilter(props) {
 
                 {/* Alaotsake, joka kertoo valitut filtterit */}
                 <div className="items__filter-wrapper items__filter-wrapper--left">
-                    {filter.kausi || filter.koko ? "" : "Kaikki"} {/* Jos filttereitä ei ole valittu, näytetään teksti "Kaikki" */}
-                    {filter.kausi ? filter.kausi : ""} {/* Jos kausifiltteri on valittu, näytetään valitun kauden nimi */}
-                    {filter.kausi && filter.koko ? ", " : ""} {/* Jos sekä kausifiltteri että kokofiltteri on valittu, laitetaan niiden nimien väliin pilkku */}
-                    {filter.koko ? selectedSizeLabel : ""} {/* Jos kokofiltteri on valittu, näytetään valitun koon numero (tai "Muu", jos koko on 999) */}
+                    {filter.kausi || filter.koko ? "" : "Kaikki"}{/* Jos filttereitä ei ole valittu, näytetään teksti "Kaikki" */}
+                    {filter.kausi ? filter.kausi : ""}{/* Jos kausifiltteri on valittu, näytetään valitun kauden nimi */}
+                    {filter.kausi && filter.koko ? ", " : ""}{/* Jos sekä kausifiltteri että kokofiltteri on valittu, laitetaan niiden nimien väliin pilkku */}
+                    {filter.koko ? selectedSizeLabel : ""}{/* Jos kokofiltteri on valittu, näytetään valitun koon numero (tai "Muu", jos koko on 999) */}
                 </div>
 
                 <div className="items__divider"></div>
