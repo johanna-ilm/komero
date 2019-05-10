@@ -4,14 +4,17 @@ import './Menu.css';
 
 import Home from '@material-ui/icons/Home';
 import BarChart from '@material-ui/icons/BarChart';
+import logout from '../../images/logout_w.png';
 
 
 function Menu(props) {
   return (
     <div className="menu">
-      <Link to="/"><div className="menu__button"><Home nativeColor="#fff" /></div></Link>
-      <Link to="/stats"><div className="menu__button"><BarChart nativeColor="#fff" /></div></Link>
-      <div className="menu__button menu__button--empty"></div>
+      <div className="menu__container">
+        <Link to="/"><div><Home nativeColor="#fff" /></div></Link>
+        <Link to="/stats"><div><BarChart nativeColor="#fff" /></div></Link>
+        <div className="menu__button"><img src={logout} alt="logout" /></div>
+      </div>
     </div>
   );
 }
