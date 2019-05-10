@@ -9,77 +9,69 @@ import { Bar } from 'react-chartjs-2';
 import './Stats.css';
 
 
-
 function Stats(props) {
 
+  // Kaavioiden oletusfontin määritys
   defaults.global.defaultFontFamily = 'Roboto';
 
+  // +-----------------+
+  // |  Pylväskaaviot  |
+  // +-----------------+
 
-  // Pylväskaaviot
+  // Vaatteet: filtteröidään datasta pois asusteet, kengät ja kausivälineet
+  let dataClothes = props.data.filter(item =>
+    item.kategoria !== "Asusteet" &&
+    item.kategoria !== "Kengät" &&
+    item.kategoria !== "Kausivälineet");
 
-  // Vaatteiden kokojakauma
-
-  // Filtteröidään datasta pois kengät ja kausivälineet
-  let dataSizes = props.data.filter(item => item.kategoria !== "Kengät" && item.kategoria !== "Kausivälineet");
-  // Irrotetaan datasta pelkkä kokojakauma
-  dataSizes = dataSizes.map(item => item.koko);
-
-  // Lasketaan, miten monta kpl kutakin kokoa on jakaumassa
-  const groupedBarData = dataSizes.reduce((kpl, koko) => {
-    kpl[koko] = (kpl[koko] || 0) + 1;
-    return kpl;
-  }, {})
-
-  const barXData = Object.values(groupedBarData);
-  const barYData = Object.keys(groupedBarData);
+  // Kengät: filtteröidään datasta pelkät kengät
+  let dataShoes = props.data.filter(item => item.kategoria === "Kengät");
 
 
-  let barChartData = {
-    labels: barYData,
-    datasets: [
-      {
-        label: 'Kpl',
-        data: barXData,
-        fill: false,
-        backgroundColor: '#fdece7',
-        borderColor: '#f18c8e',
-        borderWidth: '1',
-      }
-    ]
-  };
+  /**
+   * Funktio, joka muodostaa pylväsgraafeihin tarvittavan datan
+   * 
+   * @param {*} data // Props.data filtteröitynä (joko vaatteet tai kengät)
+   */
+  const createBarChartData = (data) => {
 
-  // Kenkien kokojakauma
+    // Irrotetaan datasta pelkkä kokojakauma
+    data = data.map(item => item.koko);
 
-  // Filtteröidään datasta pelkät kengät
-  let dataSizesShoes = props.data.filter(item => item.kategoria === "Kengät");
-  // Irrotetaan datasta pelkkä kokojakauma
-  dataSizesShoes = dataSizesShoes.map(item => item.koko);
+    // Jos jakaumasta löytyy koko 999, muutetaan se muotoon "Muu"
+    const indexOf999 = data.findIndex(item => item === 999);
+    if (indexOf999 > 0) {
+      data.splice(indexOf999, 1, "Muu")
+    }
 
-  // Lasketaan, miten monta kpl kutakin kokoa on jakaumassa
-  const groupedBarDataShoes = dataSizesShoes.reduce((kpl, koko) => {
-    kpl[koko] = (kpl[koko] || 0) + 1;
-    return kpl;
-  }, {})
+    // Lasketaan, miten monta kpl kutakin kokoa on jakaumassa
+    const groupedBarData = data.reduce((kpl, koko) => {
+      kpl[koko] = (kpl[koko] || 0) + 1;
+      return kpl;
+    }, {})
 
-  const barXDataShoes = Object.values(groupedBarDataShoes);
-  const barYDataShoes = Object.keys(groupedBarDataShoes);
+    // Jaetaan objektien arvot (kpl) x-akselille ja nimet (koko) y-akselille
+    const barXData = Object.values(groupedBarData);
+    const barYData = Object.keys(groupedBarData);
 
+    // Datan määritys Chart.js:ää varten
+    let barChartData = {
+      labels: barYData,
+      datasets: [
+        {
+          label: 'Kpl',
+          data: barXData,
+          fill: false,
+          backgroundColor: '#fdece7',
+          borderColor: '#f18c8e',
+          borderWidth: '1',
+        }
+      ]
+    };
+    return barChartData;
+  }
 
-  let barChartDataShoes = {
-    labels: barYDataShoes,
-    datasets: [
-      {
-        label: 'Kpl',
-        data: barXDataShoes,
-        fill: false,
-        backgroundColor: '#fdece7',
-        borderColor: '#f18c8e',
-        borderWidth: '1',
-      }
-    ]
-  };
-
-
+  // Asetusten määritys Chart.js:ää varten
   let barChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -103,10 +95,11 @@ function Stats(props) {
     }
   }
 
+  // +---------------+
+  // |  Viivakaavio  |
+  // +---------------+
 
-  // Viivakaavio
-
-  // summaa ostohinnat ostovuoden mukaan groupedLineData-taulukkoon
+  // Reducer summaa ostohinnat ostovuoden mukaan groupedLineData-taulukkoon
   const lineDataReducer = (groupedLineData, currentItem) => {
     const index = groupedLineData.findIndex(item => item.ostovuosi === currentItem.ostovuosi);
     if (index >= 0) {
@@ -124,10 +117,9 @@ function Stats(props) {
     return aYear - bYear;
   });
 
-
   let lineData = groupedLineData.map(item => ({ x: item.ostovuosi, y: item.ostohinta }));
 
-
+  // Datan määritys Chart.js:ää varten
   let lineChartData = {
     datasets: [
       {
@@ -140,6 +132,7 @@ function Stats(props) {
     ]
   };
 
+  // Asetusten määritys Chart.js:ää varten
   let lineChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -180,12 +173,12 @@ function Stats(props) {
 
         <h3>Vaatteiden kokojakauma</h3>
         <div className="stats__graph">
-          <Bar data={barChartData} options={barChartOptions} />
+          <Bar data={createBarChartData(dataClothes)} options={barChartOptions} />
         </div>
 
         <h3>Kenkien kokojakauma</h3>
         <div className="stats__graph">
-          <Bar data={barChartDataShoes} options={barChartOptions} />
+          <Bar data={createBarChartData(dataShoes)} options={barChartOptions} />
         </div>
 
         <h3>Kulut vuosittain</h3>

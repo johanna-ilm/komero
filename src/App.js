@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
-import testdata from './testdata';
+import firebase from './firebase';
 
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
@@ -14,11 +14,27 @@ import EditItem from './components/EditItem/EditItem';
 
 function App() {
 
-  const [data, setData] = useState(testdata);
+  const [data, setData] = useState([]);
 
+  const dbRef = firebase.firestore();
+  let refData = dbRef.collection('data');
+
+  useEffect(() => {
+    refData.orderBy("koko").onSnapshot((docs) => {
+      let data = [];
+      docs.forEach((doc) => {
+        let docData = doc.data();
+        data.push(docData);
+      });
+      setData(data);
+    });
+  }, []); // [] on tärkeä! Muuten useEffect suoritetaan uudestaan ja uudestaan. 
+  // Nyt suoritetaan vain kerran komponentin renderöidyttyä.
 
   const handleFormSubmit = newData => {
-    let storedData = data.slice();
+    refData.doc(newData.id).set(newData);
+
+    /* let storedData = data.slice();
     const index = storedData.findIndex(item => item.id === newData.id);
     if (index >= 0) {
       storedData[index] = newData;
@@ -26,17 +42,18 @@ function App() {
       storedData.push(newData);
     }
     storedData.sort((a, b) => {
-      const aSize = parseInt(a.koko); // TODO! Korjaa sorttaus
+      const aSize = parseInt(a.koko);
       const bSize = parseInt(b.koko);
       return aSize - bSize;
     });
-    setData(storedData);
+    setData(storedData); */
   }
 
   const handleItemDelete = id => {
-    let storedData = data.slice();
-    storedData = storedData.filter(item => item.id !== id);
-    setData(storedData);
+    refData.doc(id).delete().then().catch(error => { console.error("Virhe tietoa poistettaessa: ", error) });
+    /*     let storedData = data.slice();
+        storedData = storedData.filter(item => item.id !== id);
+        setData(storedData); */
   }
 
 
@@ -47,7 +64,7 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/list/:selectedCategory" render={(props) =>
           <Items data={data} {...props} />} />
-        <Route path="/stats" render={() => <Stats data={data} kokoData={data.koko} />} />
+        <Route path="/stats" render={() => <Stats data={data} />} />
         <Route path="/add" render={() => <AddItem onFormSubmit={handleFormSubmit} />} />
         <Route path="/edit/:id" render={(props) =>
           <EditItem

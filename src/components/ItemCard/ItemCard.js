@@ -31,7 +31,7 @@ function ItemCard(props) {
       </div>
 
       <div className="itemcard__size-div itemcard__flex">
-        <div className="itemcard__size">{props.data.koko}</div>
+        <div className="itemcard__size">{props.data.koko === 999 ? "Muu" : props.data.koko}</div>
       </div>
 
       <div className="itemcard__link itemcard__flex">

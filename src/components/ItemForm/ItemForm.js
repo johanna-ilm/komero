@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import uuid from 'uuid';
 
 import './ItemForm.css';
-import { categories, clothingSizes, shoeSizes } from './itemFormData';
+import { categories, clothingSizes, shoeSizes, accessoriesSizes } from './itemFormData';
 
 import Button from '../buttons';
 
@@ -18,12 +18,24 @@ function ItemForm(props) {
             vari: "#ffffff",
             kausi: "",
             ostohinta: 0,
-            ostovuosi: "",
+            ostovuosi: new Date().getFullYear().toString(),
             ostopaikka: "",
             huomioita: ""
         });
 
+    // Etsii valitun kategorian indeksin itemFormData-tiedoston listasta (käytetään urlin hakemiseen, kun lomake on palautettu)
     const index = categories.findIndex(item => item.category === data.kategoria);
+
+    // Jos valittu kategoria on asusteet, käytetään asustekokoja. Kengät tai kausivälineet -> kenkäkokoja. Muuten vaatekokoja.
+    const sizeOptionList = (data) => {
+        if (data.kategoria === "Asusteet") {
+            return accessoriesSizes;
+        } else if (data.kategoria === "Kengät" || data.kategoria === "Kausivälineet") {
+            return shoeSizes;
+        } else {
+            return clothingSizes;
+        }
+    }
 
     const handleInputChange = e => {
         const { name, value } = e.target;
@@ -108,10 +120,10 @@ function ItemForm(props) {
                             value={data.koko}
                             onChange={handleInputChange}
                             required>
-                            {/* Jos valittu kategoria on kengät tai kausivälineet, koon valinnassa käytetään kenkäkokoja (muuten vaatekokoja) */}
+                            {/* Jos valittu kategoria on asusteet, käytetään asustekokoja. Kengät tai kausivälineet -> kenkäkokoja. Muuten vaatekokoja. */}
                             <option value="" disabled>Valitse koko</option>
-                            {(data.kategoria === "Kengät" || data.kategoria === "Kausivälineet" ? shoeSizes : clothingSizes).map(item =>
-                                <option value={item} key={item}>{item}</option>
+                            {sizeOptionList(data).map(item =>
+                                <option value={item.optionValue} key={item.optionLabel}>{item.optionLabel}</option>
                             )
                             }
                         </select>
@@ -124,9 +136,9 @@ function ItemForm(props) {
                             onChange={handleInputChange}
                             required>
                             <option value="" disabled>Valitse kausi</option>
-                            <option value="kesa">Kesä</option>
-                            <option value="valikausi">Välikausi</option>
-                            <option value="talvi">Talvi</option>
+                            <option value="Kesä">Kesä</option>
+                            <option value="Välikausi">Välikausi</option>
+                            <option value="Talvi">Talvi</option>
                         </select>
                     </div>
                 </div>
