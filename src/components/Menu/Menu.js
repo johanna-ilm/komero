@@ -13,7 +13,7 @@ function Menu(props) {
       <div className="menu__container">
         <Link to="/"><div><Home nativeColor="#fff" /></div></Link>
         <Link to="/stats"><div><BarChart nativeColor="#fff" /></div></Link>
-        <div className="menu__button"><img src={logout} alt="logout" /></div>
+        <Link to="/logout"><div className="menu__button"><img src={logout} alt="logout" /></div></Link>
       </div>
     </div>
   );

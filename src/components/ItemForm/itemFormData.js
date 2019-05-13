@@ -57,31 +57,39 @@ const seasons = [
         season: "Kesä",
         imgsrc: sun,
         title: "Kesä",
-        divClassName: "items__filter-img-wrapper items__filter-img-wrapper--round",
+        divClassName: "items__filter-input-wrapper",
+        imgDivClassName: "items__filter-img-wrapper--round",
         imgClassName: "items__filter-img items__filter-img--black-when-selected"
     },
     {
         season: "Välikausi",
         imgsrc: rain,
         title: "Välikausi",
-        divClassName: "items__filter-img-wrapper items__filter-img-wrapper--round",
+        divClassName: "items__filter-input-wrapper",
+        imgDivClassName: "items__filter-img-wrapper--round",
         imgClassName: "items__filter-img items__filter-img--black-when-selected"
     },
     {
         season: "Talvi",
         imgsrc: snowflake,
         title: "Talvi",
-        divClassName: "items__filter-img-wrapper items__filter-img-wrapper--round",
+        divClassName: "items__filter-input-wrapper",
+        imgDivClassName: "items__filter-img-wrapper--round",
         imgClassName: "items__filter-img items__filter-img--black-when-selected"
     },
     {
         season: "",
         imgsrc: remove,
         title: "Poista suodatin",
-        divClassName: "items__filter-img-wrapper items__filter-img-wrapper--no-background",
-        imgClassName: "items__filter-img items__filter-img--no-change-when-selected"
+        divClassName: "items__filter-input-wrapper",
+        imgDivClassName: "items__filter-img-wrapper--no-background",
+        imgClassName: "items__filter-img"
     }
 ];
+
+
+// Kolme kokotaulukkoa. Jokaisella koolla tulee olla uniikki optionValue, jotta filtteröinti ja näyttönimen tuominen
+// toimii itemFilter-komponentissa (poikkeuksena arvo 9999 "Muu", joka on kaikille kategorioille yhteinen). 
 
 const clothingSizes = [
     {
@@ -149,7 +157,7 @@ const clothingSizes = [
         optionValue: 170
     }, {
         optionLabel: "Muu",
-        optionValue: 999
+        optionValue: 9999
     }
 ];
 
@@ -244,30 +252,30 @@ const shoeSizes = [
     },
     {
         optionLabel: "Muu",
-        optionValue: 999
+        optionValue: 9999
     },
 ];
 
 const accessoriesSizes = [
     {
         optionLabel: "46-48",
-        optionValue: 46
+        optionValue: 4648
     },
     {
         optionLabel: "48-50",
-        optionValue: 48
+        optionValue: 4850
     },
     {
         optionLabel: "50-52",
-        optionValue: 50
+        optionValue: 5052
     },
     {
         optionLabel: "52-54",
-        optionValue: 52
+        optionValue: 5254
     },
     {
         optionLabel: "54-56",
-        optionValue: 54
+        optionValue: 5456
     },
     {
         optionLabel: "0-6kk",
@@ -311,7 +319,7 @@ const accessoriesSizes = [
     },
     {
         optionLabel: "Muu",
-        optionValue: 999
+        optionValue: 9999
     },
 ];
 

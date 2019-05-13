@@ -48,7 +48,7 @@
 }
 
 .box:hover {
-    border-color: #f0b7a4;
+    border-color: #f18c8e;
 }
 
 .box:hover > img {
@@ -85,9 +85,6 @@
     grid-row: 4;
 }
 
-.box__floor {
-    border: 1px solid #000;
-}
 
 /* Laatikoiden sisällä olevat kuvat */
 

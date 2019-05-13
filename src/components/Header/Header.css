@@ -1,5 +1,9 @@
 .header {
-    background: linear-gradient(-25deg, #305f72 60%, #f0b7a4 40%);
+    background: 
+      linear-gradient(
+        -25deg, 
+        #305f72 60%, 
+        #f0b7a4 60.5%);
     color: #FFF;
     display: flex;
     justify-content: flex-end;

@@ -15,7 +15,7 @@ function ItemCard(props) {
   const notes = props.data.huomioita ?
     <div className="itemcard__notes">{props.data.huomioita}</div> : "";
 
-  // Haetaan asusteiden kokoja vastaavat näyttönimet itemFormData-tiedostosta (ja samalla kenkien ja vaatteiden koko "Muu" (999)).
+  // Haetaan asusteiden kokoja vastaavat näyttönimet itemFormData-tiedostosta (ja samalla kenkien ja vaatteiden koko "Muu" (9999)).
   let sizeLabel = props.data.koko;
   const indexOfSize = accessoriesSizes.findIndex(item => item.optionValue === parseInt(props.data.koko));
   if (indexOfSize > 0) {

@@ -38,10 +38,10 @@ function Stats(props) {
     // Irrotetaan datasta pelkkä kokojakauma
     data = data.map(item => item.koko);
 
-    // Jos jakaumasta löytyy koko 999, muutetaan se muotoon "Muu"
-    const indexOf999 = data.findIndex(item => item === 999);
-    if (indexOf999 > 0) {
-      data.splice(indexOf999, 1, "Muu")
+    // Jos jakaumasta löytyy koko 9999, muutetaan se muotoon "Muu"
+    const indexOf9999 = data.findIndex(item => item === 9999);
+    if (indexOf9999 > 0) {
+      data.splice(indexOf9999, 1, "Muu")
     }
 
     // Lasketaan, miten monta kpl kutakin kokoa on jakaumassa
@@ -146,7 +146,7 @@ function Stats(props) {
           type: "time",
           time: {
             displayFormats: {
-              year: "YYYY"
+              year: 'YYYY'
             }
           },
           gridLines: {

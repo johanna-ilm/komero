@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
-import firebase from './firebase';
+import firebase, { provider, auth } from './firebase';
 
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
@@ -10,34 +10,96 @@ import Stats from './components/Stats/Stats';
 import Menu from './components/Menu/Menu';
 import AddItem from './components/AddItem/AddItem';
 import EditItem from './components/EditItem/EditItem';
+import Content from './components/Content/Content';
+import Logout from './components/Logout/Logout';
+import Button from './components/buttons';
 
 
 function App() {
 
   const [data, setData] = useState([]);
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
 
-  let refData = firebase.firestore().collection('data');
+
+  let dbRef = firebase.firestore();
+
 
   // Sortataan ja haetaan data Firestoresta. Tallennetaan haettu data state-muuttujaan. 
   // Suoritetaan kerran komponentin renderöidyttyä (mount).
   useEffect(() => {
-    refData.orderBy("koko").onSnapshot((docs) => {
-      let data = [];
-      docs.forEach((doc) => {
-        let docData = doc.data();
-        data.push(docData);
-      });
-      setData(data);
-    });
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+        dbRef.collection("users")
+          .doc(user.uid)
+          .collection('data')
+          .orderBy("koko")
+          .onSnapshot((docs) => {
+            let data = [];
+            docs.forEach((doc) => {
+              let docData = doc.data();
+              data.push(docData);
+            });
+            setData(data);
+          });
+      }
+    })
   }, []); // [] on tärkeä! Muuten useEffect suoritetaan uudestaan ja uudestaan. 
 
 
   const handleFormSubmit = newData => {
-    refData.doc(newData.id).set(newData);
+    dbRef.collection("users")
+      .doc(user.uid)
+      .collection('data')
+      .doc(newData.id)
+      .set(newData);
   }
 
   const handleItemDelete = id => {
-    refData.doc(id).delete().then().catch(error => { console.error("Virhe tietoa poistettaessa: ", error) });
+    dbRef.collection("users")
+      .doc(user.uid)
+      .collection('data')
+      .doc(id)
+      .delete()
+      .then()
+      .catch(error => { console.error("Virhe tietoa poistettaessa: ", error) });
+  }
+
+  const login = () => {
+    auth.signInWithPopup(provider).then((result) => {
+      const user = result.user;
+      setUser(user);
+      setError(null);
+    }).catch((error) => {
+      const errorMessage = error.message;
+      setError(errorMessage);
+    });
+  }
+
+  const logout = () => {
+    auth.signOut().then(() => {
+      setUser(null);
+      dbRef = null;
+    });
+  }
+
+  if (!user) {
+    return (
+      <Router>
+        <div className="App">
+          <Header />
+          <Content>
+            <div className="app__header"><h2>Avaa Komero</h2></div>
+            <div className="app__login">
+              <div className="app_login-legend">Et ole vielä kirjautunut sisään Komeroon.</div>
+              <div className="app__login-button"><Button primary onClick={login} >Kirjaudu sisään</Button></div>
+              <div>{error ? <p>{error}</p> : null}</div>
+            </div>
+          </Content>
+        </div>
+      </Router>
+    );
   }
 
 
@@ -48,7 +110,6 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/list/:selectedCategory" render={(props) =>
           <Items data={data} {...props} />} />
-        <Route path="/stats" render={() => <Stats data={data} />} />
         <Route path="/add" render={() => <AddItem onFormSubmit={handleFormSubmit} />} />
         <Route path="/edit/:id" render={(props) =>
           <EditItem
@@ -56,6 +117,8 @@ function App() {
             onFormSubmit={handleFormSubmit}
             onDeleteItem={handleItemDelete}
             {...props} />} />
+        <Route path="/stats" render={() => <Stats data={data} />} />
+        <Route path="/logout" render={() => <Logout onLogout={logout} user={user} />} />
         <Menu />
       </div>
     </Router>

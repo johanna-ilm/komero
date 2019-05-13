@@ -74,24 +74,26 @@ function ItemForm(props) {
         <form onSubmit={handleSubmit}>
             <div className="itemform">
                 {/* Valitaan kategoria (haalarit/housut/takit/kengät/asusteet/kausivälineet) */}
-                <div className="itemform__categorybar">
+                <div className="itemform__category-bar">
                     {/* Mäpätään categories-objektien arvot radio buttoneiksi ja kuviksi. Radio buttonit piilotettu tyylimääritteissä.*/}
                     {categories.map(item =>
                         <label key={item.category}>
-                            <div className="itemform__categorywrapper">
+                            <div className="itemform__category-wrapper">
                                 <input
                                     type="radio"
                                     name="kategoria"
                                     value={item.category}
                                     checked={data.kategoria === item.category}
                                     onChange={handleInputChange} />
-                                <img src={item.imgsrc} alt={item.category} title={item.category} />
+                                <div className="itemform__img-wrapper">
+                                    <img src={item.imgsrc} alt={item.category} title={item.category} />
+                                </div>
                             </div>
                         </label>
                     )}
                 </div>
                 {/* Teksti pyytää valitsemaan kategorian. Jos kategoria on jo valittu, kertoo valitun kategorian nimen.*/}
-                <div className="itemform__categorylegend">{data.kategoria ? "Valittu kategoria: " + data.kategoria : "Valitse kategoria:"}</div>
+                <div className="itemform__category-legend">{data.kategoria ? "Valittu kategoria: " + data.kategoria : "Valitse kategoria:"}</div>
 
                 <div className="itemform__row">
                     <div>

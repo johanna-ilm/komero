@@ -36,17 +36,20 @@
 
 /* Filter icon wrappers */
 
-.items__filter-img-wrapper {
+.items__filter-input-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.items__filter-img-wrapper input {
+.items__filter-input-wrapper input {
     display: none;
 }
 
 .items__filter-img-wrapper--round {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #fdece7;
     height: 2.5rem;
     width: 2.5rem;
@@ -55,9 +58,12 @@
 }
 
 .items__filter-img-wrapper--no-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0;
-    height: 1.4rem;
-    width: 1.4rem;
+    height: 1.5rem;
+    width: 1.5rem;
 }
 
 
@@ -76,13 +82,17 @@
     opacity: 1;
 }
 
-input[type=radio]:checked + .items__filter-img--black-when-selected {
+/* Tekee ympyrälle pinkin kehyksen, kun kyseinen kausi on valittu filtteriksi */
+input[type=radio]:checked + .items__filter-img-wrapper--round {
+    padding: 0.12rem;
+    border: 0.08rem solid #f18c8e;
+}
+
+/* Muuttaa valitun kausifiltterin ikonin tummaksi, kun kyseinen kausi on valittu filtteriksi */
+input[type=radio]:checked + .items__filter-img-wrapper--round > .items__filter-img--black-when-selected {
     opacity: 0.9;
 }
 
-input[type=radio]:checked + .items__filter-img--no-change-when-selected {
-    opacity: 0.6;
-}
 
 /* Filter select list */
 

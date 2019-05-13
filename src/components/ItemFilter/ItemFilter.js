@@ -30,19 +30,21 @@ function ItemFilter(props) {
     let data = props.url === "koko_komero" ? props.data : props.data.filter(item => item.kategoria === props.category);
 
     // sortataan data koon mukaan nousevaan järjestykseen
-    data = data.sort((a, b) => {
-        if (isNaN(a.koko)) {
-            return 1;
-        } else if (isNaN(b.koko)) {
-            return -1;
-        }
-        return a.koko - b.koko;
-    }
-    );
+    data = data.sort((a, b) => a.koko - b.koko);
 
-    // Jos valittu kategoria on asusteet, käytetään asustekokoja. Kengät tai kausivälineet -> kenkäkokoja. Muuten vaatekokoja.
+    // Yhdistetään itemFormData-tiedoston kokotaulukot uudeksi taulukoksi koko komeron filtteröintiä ja näyttönimien etsimistä varten.
+    // Poistetaan kokotaulukoista ylimääräiset "Muu"-arvot, näytetään vain yksi.
+    const sizeLists = clothingSizes.concat(shoeSizes, accessoriesSizes);
+    const sizeListsUnique = Array.from(new Set(sizeLists.map(a => a.optionLabel)))
+        .map(optionLabel => {
+            return sizeLists.find(a => a.optionLabel === optionLabel);
+        });
+
+    // Käytettävä kokolista. Koko komero -> yhdistetty kokolista. Asusteet -> asustekoot. Kengät tai kausivälineet -> kenkäkoot. Muuten vaatekoot.
     const sizeOptionList = (props) => {
-        if (props.category === "Asusteet") {
+        if (props.category === "Koko Komero") {
+            return sizeListsUnique;
+        } else if (props.category === "Asusteet") {
             return accessoriesSizes;
         } else if (props.category === "Kengät" || props.category === "Kausivälineet") {
             return shoeSizes;
@@ -51,12 +53,11 @@ function ItemFilter(props) {
         }
     }
 
-    // Haetaan kokojen näyttönimet itemFormData-taulukosta (taulukkoon tallennetut arvot ovat sorttauksen takia pelkästään numeroita)  
-    const selectedSizeList = sizeOptionList(props);
+    // Haetaan kokojen näyttönimet yhdistetystä kokotaulukukosta (tietokantaan tallennetut arvot ovat sorttauksen takia pelkästään numeroita)  
     let selectedSizeLabel = "";
-    const indexOfSize = selectedSizeList.findIndex(item => item.optionValue === parseInt(filter.koko));
+    const indexOfSize = sizeListsUnique.findIndex(item => item.optionValue === parseInt(filter.koko));
     if (indexOfSize > 0) {
-        selectedSizeLabel = selectedSizeList[indexOfSize].optionLabel;
+        selectedSizeLabel = sizeListsUnique[indexOfSize].optionLabel;
     };
 
 
@@ -65,6 +66,18 @@ function ItemFilter(props) {
 
     // filtteröidään vaatteet valitun koon mukaan (tai näytetään kaikki)
     data = filter.koko ? data.filter(item => parseInt(item.koko) === parseInt(filter.koko)) : data;
+
+    // näytetään valittujen filttereiden nimet alaotsakkeessa
+    const filterName = () => {
+        return (
+            <div className="items__filter-wrapper items__filter-wrapper--left">
+                {filter.kausi || filter.koko ? "" : "Kaikki"}{/* Jos filttereitä ei ole valittu, näytetään teksti "Kaikki" */}
+                {filter.kausi ? filter.kausi : ""}{/* Jos kausifiltteri on valittu, näytetään valitun kauden nimi */}
+                {filter.kausi && filter.koko ? ", " : ""}{/* Jos sekä kausifiltteri että kokofiltteri on valittu, laitetaan niiden nimien väliin pilkku */}
+                {filter.koko ? selectedSizeLabel : ""}{/* Jos kokofiltteri on valittu, näytetään valitun koon näyttönimi */}
+            </div>
+        );
+    }
 
     // tuodaan filtteröity/filtteröimätön data nimikelistaksi ItemCard-komponentin avulla
     let rows = data.map(item => {
@@ -92,7 +105,9 @@ function ItemFilter(props) {
                                         checked={filter.kausi === item.season}
                                         onChange={handleInputChange}
                                     />
-                                    <img src={item.imgsrc} alt={item.title} title={item.title} className={item.imgClassName} />
+                                    <div className={item.imgDivClassName}>
+                                        <img src={item.imgsrc} alt={item.title} title={item.title} className={item.imgClassName} />
+                                    </div>
                                 </div>
                             </label>
                         )}
@@ -123,12 +138,7 @@ function ItemFilter(props) {
                 <div className="items__divider"></div>
 
                 {/* Alaotsake, joka kertoo valitut filtterit */}
-                <div className="items__filter-wrapper items__filter-wrapper--left">
-                    {filter.kausi || filter.koko ? "" : "Kaikki"}{/* Jos filttereitä ei ole valittu, näytetään teksti "Kaikki" */}
-                    {filter.kausi ? filter.kausi : ""}{/* Jos kausifiltteri on valittu, näytetään valitun kauden nimi */}
-                    {filter.kausi && filter.koko ? ", " : ""}{/* Jos sekä kausifiltteri että kokofiltteri on valittu, laitetaan niiden nimien väliin pilkku */}
-                    {filter.koko ? selectedSizeLabel : ""}{/* Jos kokofiltteri on valittu, näytetään valitun koon numero (tai "Muu", jos koko on 999) */}
-                </div>
+                {filterName()}
 
                 <div className="items__divider"></div>
 

@@ -4,32 +4,41 @@
     flex-direction: column;
 }
 
-.itemform__categorybar {
+
+/* Komerokategorian valintanapit */
+
+.itemform__category-bar {
     display: flex;
     flex-wrap: wrap;
-    width: 12rem;
+    width: 13rem;
     align-self: center;
     justify-content: space-between;
     align-items: center;
 }
 
-.itemform__categorywrapper {
-    background-color: #fdece7;
+.itemform__category-wrapper {
     display: flex;
-    height: 3.8em;
-    width: 3.8em;
-    padding: 7%;
-    margin-bottom: 0.5em;
-    border-radius: 50%;
     justify-content: center;
     align-items: center;
 }
 
-.itemform__categorywrapper input {
+.itemform__category-wrapper input {
     display: none;
 }
 
-.itemform__categorywrapper img {
+.itemform__img-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fdece7;
+    height: 3rem;
+    width: 3rem;
+    padding: 0.4rem;
+    margin-bottom: 0.5rem;
+    border-radius: 50%;
+}
+
+.itemform__img-wrapper img {
     align-self: center;
     opacity: 0.6;
     max-height: 100%;
@@ -38,23 +47,27 @@
     height: 65%; 
 }
 
-.itemform__categorywrapper img:hover {
+.itemform__img-wrapper img:hover {
     opacity: 1;
 }
 
-input[type=radio]:checked + img {
+input[type=radio]:checked + .itemform__img-wrapper {
+    padding: 0.32rem;
+    border: 0.08rem solid #f18c8e;
+}
+
+input[type=radio]:checked + .itemform__img-wrapper > img {
     opacity: 1;
 } 
 
-.itemform__categorylegend {
+.itemform__category-legend {
     text-align: center;
     font-size: 0.8em;
     margin: 0.5em 0 1em 0;
 }
 
-.itemform__categorylegend span {
-    font-weight: normal;
-}
+
+/* Muu lomake */
 
 .itemform__row {
     display: flex;
@@ -114,6 +127,7 @@ input[type=radio]:checked + img {
     resize: none;
 }
 
+/* Hidastaa automaattisen täydennyksen pakottamaa kentän värin muutosta */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus,
