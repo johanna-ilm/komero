@@ -25,7 +25,7 @@
     font-family: "Permanent Marker", cursive;
     font-weight: bold;
     font-size: 1.7rem;
-    opacity: 0.8;
+    opacity: 1;
 }
 
 .button--primary {
@@ -38,14 +38,22 @@
     opacity: 1;
 }
 
+.button--primary:hover {
+    transform: scale(1.1);
+}
+
 .button--secondary {
     background-color: #fff;
-    color: #999;
+    color: rgb(136, 136, 136);
 }
 
 .button--secondary:active {
     color: #cfcfcf;
     opacity: 1;
+}
+
+.button--secondary:hover {
+    transform: scale(1.1);
 }
 
 .button:disabled {

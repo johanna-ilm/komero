@@ -122,7 +122,7 @@ function ItemForm(props) {
                 <div className="itemform__row">
                     <div className="itemform__row-2cells">
                         {/* PAKOLLINEN Koon valintalista */}
-                        <label htmlFor="itemSize">Koko:</label>
+                        <label htmlFor="koko">Koko:</label>
                         <select
                             name="koko"
                             value={data.koko}
@@ -165,7 +165,7 @@ function ItemForm(props) {
                     </div>
                     <div>
                         {/* Input-kenttä ostovuodelle */}
-                        <label htmlFor="itemPurchaseYear">Ostovuosi:</label>
+                        <label htmlFor="ostovuosi">Ostovuosi:</label>
                         <input
                             type="text"
                             name="ostovuosi"

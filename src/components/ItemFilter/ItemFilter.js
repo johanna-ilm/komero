@@ -116,7 +116,7 @@ function ItemFilter(props) {
 
                 {/* Suodata koon mukaan */}
                 <div className="items__filter-wrapper">
-                    <div className="items__filter-legend">Suodata koko:</div>
+                    <label htmlFor="koko" className="items__filter-legend">Suodata koko:</label>
                     <div className="items__filter-bar">
                         <select
                             name="koko"
