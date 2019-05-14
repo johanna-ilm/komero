@@ -24,7 +24,6 @@ function App() {
 
   let dbRef = firebase.firestore();
 
-
   // Sortataan ja haetaan data Firestoresta. Tallennetaan haettu data state-muuttujaan. 
   // Suoritetaan kerran komponentin renderöidyttyä (mount).
   useEffect(() => {
