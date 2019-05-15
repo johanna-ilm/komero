@@ -15,12 +15,12 @@ import Logout from './components/Logout/Logout';
 import Button from './components/buttons';
 
 
+// Sovelluksen juurikomponentti
 function App() {
 
   const [data, setData] = useState([]);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-
 
   let dbRef = firebase.firestore();
 
@@ -47,6 +47,12 @@ function App() {
   }, []); // [] on tärkeä! Muuten useEffect suoritetaan uudestaan ja uudestaan. 
 
 
+  /**
+   * Funktio, jota ItemForm-komponentti kutsuu lähettäessään datan.
+   * Tallentaa datan Firestoren tietokantaan.
+   * 
+   * @param {*} newData 
+   */
   const handleFormSubmit = newData => {
     dbRef.collection("users")
       .doc(user.uid)
@@ -55,6 +61,13 @@ function App() {
       .set(newData);
   }
 
+  /**
+   * Funktio, jota ItemForm-komponentti kutsuu, kun halutaan poistaa yksittäinen nimike.
+   * Poistaa nimikkeen datan Firestoren tietokannasta. Jos poistaminen ei onnistu, näyttää
+   * konsolissa virheilmoituksen.
+   * 
+   * @param {*} id 
+   */
   const handleItemDelete = id => {
     dbRef.collection("users")
       .doc(user.uid)
@@ -65,6 +78,12 @@ function App() {
       .catch(error => { console.error("Virhe tietoa poistettaessa: ", error) });
   }
 
+
+  /** 
+   * Funktio, joka hoitaa sisäänkirjautumisen (Firebase Authentication, Googlen tunnuksilla). 
+   * Tallentaa käyttäjän tiedot state-muuttujaan (user). Jos kirjautuminen ei onnistu, tallentaa
+   * state-muuttujaan virheilmoituksen.
+   * */
   const login = () => {
     auth.signInWithPopup(provider).then((result) => {
       const user = result.user;
@@ -76,6 +95,10 @@ function App() {
     });
   }
 
+  /**
+   * Funktio, joka hoitaa uloskirjautumisen. Tallentaa state-muuttujaan user: null ja 
+   * tyhjentää viittauksen tietokantaan.
+   */
   const logout = () => {
     auth.signOut().then(() => {
       setUser(null);
@@ -83,6 +106,8 @@ function App() {
     });
   }
 
+
+  // Sisäänkirjautumissivu (näytetään, jos user-muuttujaan ei ole tallennettu käyttäjän tietoja)
   if (!user) {
     return (
       <Router>
@@ -93,6 +118,7 @@ function App() {
             <div className="app__login">
               <div className="app_login-legend">Et ole vielä kirjautunut sisään Komeroon.</div>
               <div className="app__login-button"><Button primary onClick={login} >Kirjaudu sisään</Button></div>
+              {/* Jos sisäänkirjautuminen ei onnistu, näytetään state-muuttujaan tallennettu virheilmoitus */}
               <div>{error ? <p>{error}</p> : null}</div>
             </div>
           </Content>
@@ -101,7 +127,7 @@ function App() {
     );
   }
 
-
+  // Kirjautuneelle käyttäjälle:
   return (
     <Router>
       <div className="App">

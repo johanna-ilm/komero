@@ -7,7 +7,8 @@ import BarChart from '@material-ui/icons/BarChart';
 import logout from '../../images/logout_w.png';
 
 
-function Menu(props) {
+// Sovelluksen alalaidassa oleva menu-palkki. Linkit etusivulle, tilastosivulle ja logout-sivulle. 
+function Menu() {
   return (
     <div className="menu">
       <div className="menu__container">

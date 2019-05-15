@@ -17,11 +17,14 @@ import skiis from '../../images/ski-equiptment.png';
 import lamp from '../../images/theatre-light.png';
 
 
-function Home(props) {
+// Sovelluksen "etusivu"
+function Home() {
 
     return (
         <Content>
             <div className="home">
+                {/* Muodostetaan CSS Gridin avulla diveistä ja kuvista laatikkopino, joita klikkaamalla 
+            päästään kyseisen kategorian /list-sivulle (Items-komponentti) */}
                 <div className="home__boxes">
                     <div className="box__lamp"><img src={lamp} alt="valaisin" /></div>
                     <div className="box__grid">
@@ -34,7 +37,7 @@ function Home(props) {
                             <img src={skiis} alt="Kausivälineet" title="Kausivälineet" id="box__img-skiis" /></Link>
                     </div>
                 </div>
-
+                {/* Floating Action Button, josta pääsee lisäyssivulle (AddItem-komponentti) */}
                 <div className="fab__wrapper">
                     <div className="fab__fab-wrapper">
                         <Link to="/add"><FloatingButton>+</FloatingButton></Link>

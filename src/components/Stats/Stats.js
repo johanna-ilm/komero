@@ -9,10 +9,12 @@ import { Bar } from 'react-chartjs-2';
 import './Stats.css';
 
 
+// Komponentti, joka näyttää datasta muodostetut tilastokaaviot
 function Stats(props) {
 
   // Kaavioiden oletusfontin määritys
   defaults.global.defaultFontFamily = 'Roboto';
+
 
   // +-----------------+
   // |  Pylväskaaviot  |
@@ -53,6 +55,7 @@ function Stats(props) {
     // Jaetaan objektien arvot (kpl) x-akselille ja nimet (koko) y-akselille
     const barXData = Object.values(groupedBarData);
     const barYData = Object.keys(groupedBarData);
+
 
     // Datan määritys Chart.js:ää varten
     let barChartData = {
@@ -118,6 +121,7 @@ function Stats(props) {
   });
 
   let lineData = groupedLineData.map(item => ({ x: item.ostovuosi, y: item.ostohinta }));
+
 
   // Datan määritys Chart.js:ää varten
   let lineChartData = {

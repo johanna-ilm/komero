@@ -8,6 +8,7 @@ import { categories, clothingSizes, shoeSizes, accessoriesSizes } from './itemFo
 import Button from '../buttons';
 
 
+// Komponentti, joka muodostaa lomakkeen /add ja /edit/-sivuille (AddItem- ja EditItem-komponentteihin) 
 function ItemForm(props) {
 
     const [data, setData] = useState(
@@ -15,7 +16,7 @@ function ItemForm(props) {
             kategoria: "",
             nimike: "",
             koko: "",
-            vari: "#ffffff",
+            vari: "#ffffff", // vaatteen/välineen oletusväri valkoinen
             kausi: "",
             ostohinta: 0,
             ostovuosi: new Date().getFullYear().toString(), // antaa oletuksena kuluvan vuoden
@@ -23,10 +24,10 @@ function ItemForm(props) {
             huomioita: ""
         });
 
-    // Etsii valitun kategorian indeksin itemFormData-tiedoston listasta (käytetään urlin hakemiseen, kun lomake on palautettu)
+    // Etsii valitun vaate/välinekategorian indeksin itemFormData-tiedoston listasta (käytetään urlin hakemiseen, kun lomake on lähetetty)
     const index = categories.findIndex(item => item.category === data.kategoria);
 
-    // Jos valittu kategoria on asusteet, käytetään asustekokoja. Kengät tai kausivälineet -> kenkäkokoja. Muuten vaatekokoja.
+    // Jos valittu kategoria on asusteet, lomakkeessa käytetään asustekokoja. Kengät tai kausivälineet -> kenkäkokoja. Muuten vaatekokoja.
     const sizeOptionList = (data) => {
         if (data.kategoria === "Asusteet") {
             return accessoriesSizes;

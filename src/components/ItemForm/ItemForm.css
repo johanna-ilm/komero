@@ -111,6 +111,7 @@ input[type=radio]:checked + .itemform__img-wrapper > img {
 }
 
 .itemform input, .itemform select, .itemform textarea {
+    -moz-appearance: none;
     padding: 0.5em 0.5em 0.5em 0.7em;
     border: none;
     background-color: #fdece7;
@@ -127,6 +128,10 @@ input[type=radio]:checked + .itemform__img-wrapper > img {
     resize: none;
 }
 
+.itemform input[type=number] {
+    -moz-appearance: textfield;
+}
+
 /* Hidastaa automaattisen täydennyksen pakottamaa kentän värin muutosta */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -139,7 +144,6 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   transition: background-color 10000s ease-in-out 0s;
 }
-
 
 .itemform label {
     font-size: 0.8em;

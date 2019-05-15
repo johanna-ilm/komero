@@ -97,6 +97,7 @@ input[type=radio]:checked + .items__filter-img-wrapper--round > .items__filter-i
 /* Filter select list */
 
 .items__filter-bar select {
+    -moz-appearance: none;
     padding: 0.5em;
     border: none;
     background-color: #fdece7;
@@ -106,6 +107,7 @@ input[type=radio]:checked + .items__filter-img-wrapper--round > .items__filter-i
     outline: none;
     width: 70%;
 }
+
 
 /* Button for clearing size filter */
 

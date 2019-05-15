@@ -5,7 +5,7 @@ import Button from '../buttons';
 
 import './Logout.css';
 
-
+// Komponentti, joka näyttää kirjautuneen käyttäjän tiedot ja antaa mahdollisuuden kirjautua ulos
 function Logout(props) {
     return (
         <Content>

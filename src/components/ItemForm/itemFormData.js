@@ -11,6 +11,10 @@ import snowflake from '../../images/snowflake.png';
 import remove from '../../images/wrong.png';
 
 
+// Aputiedosto. Tästä tiedostosta mäpätään ja etsitään tietoja ItemForm-, ItemCard-, ItemFilter- ja Items-komponentteihin
+
+
+// Vaate/välinekategoriat: nimet, ikonien tiedostopolut ja käytettävä url (/list/-sivulla)
 const categories = [
     {
         category: "Haalarit",
@@ -45,6 +49,7 @@ const categories = [
 
 ];
 
+// Jos käytetään sovelluksen headerissä olevaa linkkiä, saadaan näkyviin koko Komero ja url on /list/koko_komero
 const topCategory = [
     {
         category: "Koko Komero",
@@ -52,6 +57,9 @@ const topCategory = [
     }
 ];
 
+
+// Valittavien kausien nimet, kuvien tiedostopolut ja title-tiedot ja 
+// CSS-luokkien tiedot (mäpätään ItemFilter-komponentissa)
 const seasons = [
     {
         season: "Kesä",

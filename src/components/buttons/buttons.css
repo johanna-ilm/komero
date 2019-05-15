@@ -62,6 +62,8 @@
     box-shadow: none;
 }
 
+/* Floating Action Button */
+
 .button--floating {
     background-color: #f18c8e;
     opacity: 1;

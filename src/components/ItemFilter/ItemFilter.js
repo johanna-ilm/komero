@@ -5,6 +5,9 @@ import ItemCard from '../ItemCard/ItemCard';
 import './ItemFilter.css';
 import { seasons, shoeSizes, clothingSizes, accessoriesSizes } from '../ItemForm/itemFormData';
 
+
+// Komponentti, joka muodostaa /list/-sivulla (Items-komponentissa) tarvittavat filtteröinnit 
+// sekä tuo filtteröidyn ja sortatun datan ItemCard-komponentista. 
 function ItemFilter(props) {
 
     const [filter, setFilter] = useState(
@@ -26,9 +29,12 @@ function ItemFilter(props) {
         setFilter({ ...filter, koko: "" })
     }
 
-    // filtteröidään näkyviin vain se data, joka edustaa valittua vaatekategoriaa (tai näytetään kaikki)
+    // YLÄTASON FILTTERI
+    // filtteröidään näkyviin vain se data, joka edustaa valittua vaatekategoriaa 
+    // (tai näytetään kaikki, jos sivulle on saavuttu urlin "/koko_komero" kautta)
     let data = props.url === "koko_komero" ? props.data : props.data.filter(item => item.kategoria === props.category);
 
+    // SORTTAUS
     // sortataan data koon mukaan nousevaan järjestykseen
     data = data.sort((a, b) => a.koko - b.koko);
 
@@ -60,10 +66,11 @@ function ItemFilter(props) {
         selectedSizeLabel = sizeListsUnique[indexOfSize].optionLabel;
     };
 
-
+    // KAUSIFILTTERI
     // filtteröidään vaatteet valitun kauden mukaan (tai näytetään kaikki)
     data = filter.kausi ? data.filter(item => item.kausi === filter.kausi) : data;
 
+    // KOKOFILTTERI
     // filtteröidään vaatteet valitun koon mukaan (tai näytetään kaikki)
     data = filter.koko ? data.filter(item => parseInt(item.koko) === parseInt(filter.koko)) : data;
 
@@ -79,7 +86,7 @@ function ItemFilter(props) {
         );
     }
 
-    // tuodaan filtteröity/filtteröimätön data nimikelistaksi ItemCard-komponentin avulla
+    // Tuodaan filtteröity/filtteröimätön data nimikelistaksi ItemCard-komponentin avulla
     let rows = data.map(item => {
         return (
             <ItemCard data={item} key={item.id} />
@@ -143,6 +150,7 @@ function ItemFilter(props) {
                 <div className="items__divider"></div>
 
             </div>
+            {/* Tuodaan filtteröity/filtteröimätön data nimikelistaksi ItemCard-komponentin avulla */}
             {rows}
         </div>
     );
