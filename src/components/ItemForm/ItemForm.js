@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router';
-import uuid from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 import './ItemForm.css';
 import { categories, clothingSizes, shoeSizes, accessoriesSizes } from './itemFormData';
@@ -57,7 +57,7 @@ function ItemForm(props) {
         let newData = Object.assign({}, data);
         newData.koko = parseInt(newData.koko);
         newData.ostohinta = parseFloat(newData.ostohinta);
-        newData.id = newData.id ? newData.id : uuid.v4();
+        newData.id = newData.id ?? uuidv4();
         props.onFormSubmit(newData);
         props.history.push("/list/" + categories[index].url);
     }
@@ -70,7 +70,7 @@ function ItemForm(props) {
         props.history.push("/list/" + categories[index].url);
     }
 
-
+    
     return (
         <form onSubmit={handleSubmit}>
             <div className="itemform">

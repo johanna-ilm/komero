@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Content from '../Content/Content';
-
-import { defaults } from 'react-chartjs-2';
+import { Chart } from "chart.js/auto";
+import 'chartjs-adapter-moment';
 import { Line } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
 
@@ -13,7 +13,7 @@ import './Stats.css';
 function Stats(props) {
 
   // Kaavioiden oletusfontin määritys
-  defaults.global.defaultFontFamily = 'Roboto';
+  Chart.defaults.font.family = 'Roboto';
 
 
   // +-----------------+
@@ -80,21 +80,18 @@ function Stats(props) {
     maintainAspectRatio: false,
     legend: { display: false },
     scales: {
-      xAxes: [
-        {
-          type: "category",
-          gridLines: {
-            display: false
-          }
+      x: {
+        type: "category",
+        gridLines: {
+          display: false
         }
-      ],
-      yAxes: [{
+      },
+      y: {
         ticks: {
           stepSize: 1,
           beginAtZero: true
         }
       }
-      ]
     }
   }
 
@@ -145,26 +142,23 @@ function Stats(props) {
       position: "bottom"
     },
     scales: {
-      xAxes: [
-        {
-          type: "time",
-          time: {
-            displayFormats: {
-              year: 'YYYY'
-            }
-          },
-          gridLines: {
-            display: false
+      x: {
+        type: "time",
+        time: {
+          displayFormats: {
+            year: 'YYYY'
           }
+        },
+        gridLines: {
+          display: false
         }
-      ],
-      yAxes: [{
+      },
+      y: {
         ticks: {
           stepSize: 100,
           beginAtZero: true
         }
       }
-      ]
     }
   }
 

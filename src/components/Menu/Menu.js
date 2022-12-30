@@ -12,8 +12,8 @@ function Menu() {
   return (
     <div className="menu">
       <div className="menu__container">
-        <Link to="/"><div><Home nativeColor="#fff" /></div></Link>
-        <Link to="/stats"><div><BarChart nativeColor="#fff" /></div></Link>
+        <Link to="/"><div><Home htmlColor="#fff" /></div></Link>
+        <Link to="/stats"><div><BarChart htmlColor="#fff" /></div></Link>
         <Link to="/logout"><div className="menu__button"><img src={logout} alt="logout" /></div></Link>
       </div>
     </div>
