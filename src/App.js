@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import firebase, { provider, auth } from './firebase';
+import toast, { Toaster } from 'react-hot-toast';
 
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
@@ -58,7 +59,9 @@ function App() {
       .doc(user.uid)
       .collection('data')
       .doc(newData.id)
-      .set(newData);
+      .set(newData)
+      .then(toast.success(`"${newData.nimike}" tallennettu!`))
+      .catch(error => { toast.error("Virhe nimikkeen tallennuksessa: " + error) });
   }
 
   /**
@@ -74,8 +77,8 @@ function App() {
       .collection('data')
       .doc(id)
       .delete()
-      .then()
-      .catch(error => { console.error("Virhe tietoa poistettaessa: ", error) });
+      .then(toast.success("Nimike poistettu"))
+      .catch(error => { toast.error("Virhe tietoa poistettaessa: " + error) });
   }
 
 
@@ -144,6 +147,7 @@ function App() {
             {...props} />} />
         <Route path="/stats" render={() => <Stats data={data} />} />
         <Route path="/logout" render={() => <Logout onLogout={logout} user={user} />} />
+        <Toaster />
         <Menu />
       </div>
     </Router>

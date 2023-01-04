@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router';
 import {v4 as uuidv4} from 'uuid';
+import toast, { Toaster } from 'react-hot-toast';
 
 import './ItemForm.css';
 import { categories, clothingSizes, shoeSizes, accessoriesSizes } from './itemFormData';
@@ -55,6 +56,13 @@ function ItemForm(props) {
     const handleSubmit = e => {
         e.preventDefault();
         let newData = Object.assign({}, data);
+
+        // Tarkasta, että kategoria on valittu
+        if(!newData.kategoria) {
+            toast.error('Valitse vaatekategoria!');
+            return;
+        }
+
         newData.koko = parseInt(newData.koko);
         newData.ostohinta = parseFloat(newData.ostohinta);
         newData.id = newData.id ?? uuidv4();
@@ -94,7 +102,7 @@ function ItemForm(props) {
                     )}
                 </div>
                 {/* Teksti pyytää valitsemaan kategorian. Jos kategoria on jo valittu, kertoo valitun kategorian nimen.*/}
-                <div className="itemform__category-legend">{data.kategoria ? "Valittu kategoria: " + data.kategoria : "Valitse kategoria:"}</div>
+                <div className="itemform__category-legend">{data.kategoria ? "Vaatekategoria: " + data.kategoria : "Valitse vaatekategoria:"}</div>
 
                 <div className="itemform__row">
                     <div>
@@ -213,6 +221,7 @@ function ItemForm(props) {
                 </div>
 
             </div>
+            <Toaster />
         </form>
     );
 }
