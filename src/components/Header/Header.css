@@ -1,25 +1,32 @@
 .header {
-    background: 
-      linear-gradient(
-        -25deg, 
-        #305f72 60%, 
-        #f0b7a4 60.5%);
-    color: #FFF;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    padding: 0.5em;
-    max-height: 2.5em;
-    min-height: 2.5em;
-    }
-    
-    .header h1 {
-      font-size: 1.8em;
-      font-family: 'Permanent Marker', cursive;
-      margin-right: 0.8em;
-    }
+  background: 
+    linear-gradient(
+      -25deg, 
+      #305f72 55%, 
+      #f0b7a4 55.5%);
+  color: #FFF;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em;
+  max-height: 2.5em;
+  min-height: 2.5em;
+  }
+  
+.header h1 {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.8rem;
+  margin-right: 0.8em;
+  align-self: flex-end;
+}
 
-    .header a {
-      text-decoration: none;
-      color: #fff;
-    }
+.header a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.subHeader {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+  align-self: center;
+}

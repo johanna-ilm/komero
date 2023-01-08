@@ -30,7 +30,7 @@
 
 .button--primary {
     background-color: #fff;
-    color: #f18c8e;
+    color: var(--tumma-tehostevari);
 }
 
 .button--primary:active {
@@ -65,7 +65,7 @@
 /* Floating Action Button */
 
 .button--floating {
-    background-color: #f18c8e;
+    background-color: var(--tumma-tehostevari);
     opacity: 1;
     font-family: "Permanent Marker", cursive;
     color: #fff;

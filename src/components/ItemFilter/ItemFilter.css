@@ -50,7 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fdece7;
+    background-color: var(--vaalea-tehostevari);
     height: 2.5rem;
     width: 2.5rem;
     padding: 0.2rem;
@@ -85,7 +85,7 @@
 /* Tekee ympyrälle pinkin kehyksen, kun kyseinen kausi on valittu filtteriksi */
 input[type=radio]:checked + .items__filter-img-wrapper--round {
     padding: 0.12rem;
-    border: 0.08rem solid #f18c8e;
+    border: 0.08rem solid var(--tumma-tehostevari);
 }
 
 /* Muuttaa valitun kausifiltterin ikonin tummaksi, kun kyseinen kausi on valittu filtteriksi */
@@ -100,7 +100,7 @@ input[type=radio]:checked + .items__filter-img-wrapper--round > .items__filter-i
     -moz-appearance: none;
     padding: 0.5em;
     border: none;
-    background-color: #fdece7;
+    background-color: var(--vaalea-tehostevari);
     border-radius: 0.2em;
     font-size: 0.9em;
     font-family: 'Roboto', sans-serif;

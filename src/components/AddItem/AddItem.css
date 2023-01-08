@@ -1,9 +1,9 @@
-.additem {
+/*.additem {
     padding: 0 1.5rem 1.5rem 1.5rem;
-}
+}*/
 
 .additem__header {
-    margin: 1rem 0 2rem 0.5rem;
+    margin: 1rem 0 1.5rem 2rem;
 }
 
 .additem__header h2 {

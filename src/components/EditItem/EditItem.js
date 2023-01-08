@@ -16,15 +16,16 @@ function EditItem(props) {
     return (
         <Content>
             <div className="edititem">
-                <div className="edititem__header">
-                    <h2>Muokkaa tietoja</h2>
-                </div>
+                {/*<div className="edititem__header">
+                    {/*<h2>Muokkaa</h2>
+                </div>*/}
                 {/* Tuodaaan ItemForm-komponentti, jolle annetaan propseiksi kyseisen nimikkeen data sekä 
                 App.js:ssä määritellyt funktiot lomakkeen lähettämiseen ja nimikkeen poistamiseen */}
                 <ItemForm
                     onFormSubmit={props.onFormSubmit}
                     data={itemData}
-                    onDeleteItem={props.onDeleteItem} />
+                    onDeleteItem={props.onDeleteItem}
+                    onDeleteImage={props.onDeleteImage} />
             </div>
 
         </Content >

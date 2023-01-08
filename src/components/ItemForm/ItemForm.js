@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4} from 'uuid';
 import toast, { Toaster } from 'react-hot-toast';
 
 import './ItemForm.css';
 import { categories, clothingSizes, shoeSizes, accessoriesSizes } from './itemFormData';
 
 import Button from '../buttons';
+import ItemFormHeader from '../ItemFormHeader/ItemFormHeader';
 
 
 // Komponentti, joka muodostaa lomakkeen /add ja /edit/-sivuille (AddItem- ja EditItem-komponentteihin) 
 function ItemForm(props) {
-
+    const [file, setFile] = useState(null);
     const [data, setData] = useState(
         props.data ? props.data : {
             kategoria: "",
@@ -22,7 +23,9 @@ function ItemForm(props) {
             ostohinta: 0,
             ostovuosi: new Date().getFullYear().toString(), // antaa oletuksena kuluvan vuoden
             ostopaikka: "",
-            huomioita: ""
+            huomioita: "",
+            imgUrl: "",
+            tiedostonimi: ""
         });
 
     // Etsii valitun vaate/välinekategorian indeksin itemFormData-tiedoston listasta (käytetään urlin hakemiseen, kun lomake on lähetetty)
@@ -41,8 +44,16 @@ function ItemForm(props) {
 
     // Tallentaa lomakkeella tapahtuvat arvojen muutokset state-muuttujaan
     const handleInputChange = e => {
-        const { name, value } = e.target;
-        setData({ ...data, [name]: value });
+        if(e.target.id === 'kuvatiedosto') {
+            if(e.target.files[0]) {
+                setFile(e.target.files[0]);
+            } else {
+                setFile("");
+            }
+        } else {
+            const { name, value } = e.target;
+            setData({ ...data, [name]: value });
+        }
     }
 
     // Vie käyttäjän takaisin edelliselle sivulle
@@ -66,7 +77,7 @@ function ItemForm(props) {
         newData.koko = parseInt(newData.koko);
         newData.ostohinta = parseFloat(newData.ostohinta);
         newData.id = newData.id ?? uuidv4();
-        props.onFormSubmit(newData);
+        props.onFormSubmit(newData, file);
         props.history.push("/list/" + categories[index].url);
     }
 
@@ -78,32 +89,16 @@ function ItemForm(props) {
         props.history.push("/list/" + categories[index].url);
     }
 
+    const handleImageDelete = e => {
+        e.preventDefault();
+        props.onDeleteImage(data.id, data.tiedostonimi);
+        setData({...data, tiedostonimi: "", imgUrl: ""});
+    }
     
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}> 
             <div className="itemform">
-                {/* Valitaan kategoria (haalarit/housut/takit/kengät/asusteet/kausivälineet) */}
-                <div className="itemform__category-bar">
-                    {/* Mäpätään categories-objektien arvot radio buttoneiksi ja kuviksi. Radio buttonit piilotettu tyylimääritteissä.*/}
-                    {categories.map(item =>
-                        <label key={item.category}>
-                            <div className="itemform__category-wrapper">
-                                <input
-                                    type="radio"
-                                    name="kategoria"
-                                    value={item.category}
-                                    checked={data.kategoria === item.category}
-                                    onChange={handleInputChange} />
-                                <div className="itemform__img-wrapper">
-                                    <img src={item.imgsrc} alt={item.category} title={item.category} />
-                                </div>
-                            </div>
-                        </label>
-                    )}
-                </div>
-                {/* Teksti pyytää valitsemaan kategorian. Jos kategoria on jo valittu, kertoo valitun kategorian nimen.*/}
-                <div className="itemform__category-legend">{data.kategoria ? "Vaatekategoria: " + data.kategoria : "Valitse vaatekategoria:"}</div>
-
+                <ItemFormHeader kategoria={data.kategoria} imgUrl={data.imgUrl} onInputChange={handleInputChange} onDeleteImage={handleImageDelete}/>
                 <div className="itemform__row">
                     <div>
                         {/* PAKOLLINEN Input-kenttä vaatteen/kenkien/välineen nimikkeelle */}
@@ -127,7 +122,6 @@ function ItemForm(props) {
                             onChange={handleInputChange} />
                     </div>
                 </div>
-
                 <div className="itemform__row">
                     <div className="itemform__row-2cells">
                         {/* PAKOLLINEN Koon valintalista */}

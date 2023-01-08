@@ -39,7 +39,7 @@
 
 .box {
     display: flex;
-    background-color: #fdece7;
+    background-color: var(--vaalea-tehostevari);
     border: 2px solid rgb(215, 215, 215);
     border-radius: 0.2em;
     padding: 2%;
@@ -48,7 +48,7 @@
 }
 
 .box:hover {
-    border-color: #f18c8e;
+    border-color: var(--tumma-tehostevari);
 }
 
 .box:hover > img {

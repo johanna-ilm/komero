@@ -65,8 +65,8 @@ function Stats(props) {
           label: 'Kpl',
           data: barXData,
           fill: false,
-          backgroundColor: '#fdece7',
-          borderColor: '#f18c8e',
+          backgroundColor: 'var(--vaalea-tehostevari)',
+          borderColor: 'var(--tumma-tehostevari)',
           borderWidth: '1',
         }
       ]
@@ -127,8 +127,8 @@ function Stats(props) {
         label: "kulut (€)",
         data: lineData,
         fill: false,
-        backgroundColor: '#fdece7',
-        borderColor: '#f18c8e'
+        backgroundColor: 'var(--vaalea-tehostevari)',
+        borderColor: 'var(--tumma-tehostevari)'
       }
     ]
   };

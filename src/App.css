@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600|Roboto|Permanent+Marker');
 
+:root {
+  --teksti-melkein-musta: #222;
+  --vaalea-tehostevari: #fdece7;
+  --tumma-tehostevari: #f18c8e;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +19,7 @@
   display: flex;
   flex-direction: column;
   font-family: 'Roboto', sans-serif;
-  color: #222;
+  color: var(--teksti-melkein-musta);
 }
 
 .App > * {

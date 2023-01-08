@@ -1,6 +1,6 @@
-.edititem {
+/*.edititem {
     padding: 0 1.5rem 1.5rem 1.5rem;
-}
+}*/
 
 .edititem__header {
     margin: 2rem 0 3rem 0.5rem;
@@ -9,5 +9,7 @@
 .edititem__header h2 {
     font-family: 'Permanent Marker', cursive;
     font-size: 2em;
+    position: relative;
+    z-index: 10;
 }
 
