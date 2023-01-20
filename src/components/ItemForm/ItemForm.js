@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 import { v4 as uuidv4} from 'uuid';
 import toast, { Toaster } from 'react-hot-toast';
@@ -13,6 +13,7 @@ import ItemFormHeader from '../ItemFormHeader/ItemFormHeader';
 // Komponentti, joka muodostaa lomakkeen /add ja /edit/-sivuille (AddItem- ja EditItem-komponentteihin) 
 function ItemForm(props) {
     const [file, setFile] = useState(null);
+    const [preview, setPreview] = useState();
     const [data, setData] = useState(
         props.data ? props.data : {
             kategoria: "",
@@ -47,14 +48,34 @@ function ItemForm(props) {
         if(e.target.id === 'kuvatiedosto') {
             if(e.target.files[0]) {
                 setFile(e.target.files[0]);
+                setData({ ...data, tiedostonimi: e.target.files[0].name, imgUrl: ''});
+                console.log(data);
             } else {
                 setFile("");
+                setData({ ...data, tiedostonimi: '', imgUrl: ''});
             }
         } else {
             const { name, value } = e.target;
             setData({ ...data, [name]: value });
+            console.log(data);
         }
     }
+
+
+    // create a preview as a side effect, whenever selected file is changed
+    useEffect(() => {
+        if (!file) {
+            setPreview(undefined);            
+            return;
+        }
+
+        const objectUrl = URL.createObjectURL(file);
+        setPreview(objectUrl);
+
+        // free memory when ever this component is unmounted
+        return () => URL.revokeObjectURL(objectUrl)
+    }, [file]);
+
 
     // Vie käyttäjän takaisin edelliselle sivulle
     const handleCancel = e => {
@@ -64,7 +85,7 @@ function ItemForm(props) {
 
     // Lisää/Tallenna-napista painamalla tallentaa state-muuttujan tiedot newData-muuttujaan. Antaa nimikkeelle id:n, jos sillä ei vielä sitä ole.
     // Vie käyttäjän kyseisen kategorian listaussivulle (Items-komponentti).
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         let newData = Object.assign({}, data);
 
@@ -77,28 +98,40 @@ function ItemForm(props) {
         newData.koko = parseInt(newData.koko);
         newData.ostohinta = parseFloat(newData.ostohinta);
         newData.id = newData.id ?? uuidv4();
-        props.onFormSubmit(newData, file);
-        props.history.push("/list/" + categories[index].url);
+        const dataSaved = await props.onFormSubmit(newData, file);
+        if(dataSaved) {
+            props.history.push("/list/" + categories[index].url);
+        }
+        
     }
 
     // Poistaa kyseisen nimikkeen tietokannasta id:n perusteella. 
-    // Vie käyttäjän kyseisen kategorian listaussivulle (Items-komponentti).
-    const handleItemDelete = e => {
+    // Vie käyttäjän kyseisen kategorian listaussivulle (Items-komponentti), jos poisto onnistui.
+    const handleItemDelete = async (e) => {
         e.preventDefault();
-        props.onDeleteItem(data.id);
-        props.history.push("/list/" + categories[index].url);
+        const itemDeleted = await props.onDeleteItem(data);
+        if(itemDeleted) {
+            props.history.push("/list/" + categories[index].url);
+        }
     }
 
-    const handleImageDelete = e => {
+    const handleImageDelete = async (e) => {
         e.preventDefault();
-        props.onDeleteImage(data.id, data.tiedostonimi);
-        setData({...data, tiedostonimi: "", imgUrl: ""});
+        const imageDeleted = await props.onDeleteImage(data);
+        if(imageDeleted) {
+            setData({...data, tiedostonimi: "", imgUrl: ""});
+        }
+    }
+
+    const handleEmptyFileInput = (e) => {
+        e.preventDefault();
+        setFile('');
     }
     
     return (
         <form onSubmit={handleSubmit}> 
             <div className="itemform">
-                <ItemFormHeader kategoria={data.kategoria} imgUrl={data.imgUrl} onInputChange={handleInputChange} onDeleteImage={handleImageDelete}/>
+                <ItemFormHeader data={data} preview={preview} onInputChange={handleInputChange} onDeleteImage={handleImageDelete} onEmptyFileInput={handleEmptyFileInput} />
                 <div className="itemform__row">
                     <div>
                         {/* PAKOLLINEN Input-kenttä vaatteen/kenkien/välineen nimikkeelle */}
