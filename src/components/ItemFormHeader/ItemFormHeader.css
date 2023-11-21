@@ -10,7 +10,7 @@
     flex-direction: column;
     align-content: center;
     flex-grow: 1;
-    margin: 1rem 1rem 0;
+    margin: 1rem 1rem 0 2rem;
 }
 
 .itemform__category-wrapper--big {
@@ -104,6 +104,25 @@ input[type=radio]:checked + .itemform__img-wrapper > img {
     display:flex;
     justify-content: flex-end;
     position: relative;
+    flex-grow: 1;
+    /*width: 75vw;*/
+    max-width: 15rem;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    /*-webkit-clip-path: circle(45.4% at 63% 39%);
+	clip-path: circle(45.4% at 63% 39%);
+    border-left: 8px solid var(--vaalea-tehostevari);
+    border-bottom: 8px solid var(--vaalea-tehostevari);*/
+}
+
+.itemform__nimikkeenKuva-modaali {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    outline: none;
+    width: 90vw;
+    max-width: 100%;
 }
 
 .itemform__photo-wrapper--overlay {
@@ -111,15 +130,16 @@ input[type=radio]:checked + .itemform__img-wrapper > img {
 }
 
 .itemform__photo-wrapper--big {
-    width: 50vw;
+    /*width: 50vw;*/
     height: 50vw;
-    max-width: 15em;
+    /*max-width: 15em;*/
     max-height: 15em;
-    border-radius: 0 0 0 75%;
+    /*border-radius: 0 0 0 75%;*/
+	display: block;
+	width: 100%;
+
     object-fit: cover;
-    border-left: 8px solid var(--vaalea-tehostevari);
-    border-bottom: 8px solid var(--vaalea-tehostevari);
-    flex-grow: 1;
+
 }
 
 .itemform__photo-wrapper--small {
@@ -150,10 +170,16 @@ input[type=radio]:checked + .itemform__img-wrapper > img {
     align-items: center;
 }
 
+.itemform__kuvaikoni-wrapper_no-margin {
+    bottom: 0;
+    right: 0;
+}
+
 .itemform__kuvaikoni-wrapper > div {
-    background-color: rgba(0, 0, 0, 0.5);
-    padding-left: 3px;
-    padding-right: 3px;
+    /*background-color: rgba(0, 0, 0, 0.5);*/
+    background-color: rgba(220, 220, 220, 0.8);
+    padding: 2px 3px 0;
+    border-radius: 5px;
 }
 
 .itemform__fileInput {

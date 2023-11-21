@@ -3,7 +3,9 @@ import './ItemFormHeader.css';
 import '../ItemForm/ItemForm.css';
 import { categories } from '../ItemForm/itemFormData';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import ClearIcon from '@mui/icons-material/Clear';
+import DeleteForever from '@mui/icons-material/DeleteForever';
+import Avatar from '@mui/material/Avatar';
+import Modal from '@mui/material/Modal';
 
 
 export default function ItemFormHeader({data, preview, onInputChange, onDeleteImage, onEmptyFileInput}) {
@@ -18,27 +20,56 @@ export default function ItemFormHeader({data, preview, onInputChange, onDeleteIm
 				: <ItemFormCategorySelected kategoria={data.kategoria} setChangeCategory={setChangeCategory} />}
 			<input type="file" id="kuvatiedosto" className='itemform__fileInput' accept="image/*" onChange={onInputChange}/>
 			{imgSrc 
-				? <ItemFormShowPhoto imgSrc={imgSrc} imgUrl={data.imgUrl} onDeleteImage={onDeleteImage} onEmptyFileInput={onEmptyFileInput} /> 
+				? <ItemFormShowPhoto imgSrc={imgSrc} imgUrl={data.imgUrl} onDeleteImage={onDeleteImage} onEmptyFileInput={onEmptyFileInput} changeCategory={changeCategory} /> 
 				: <ItemFormAddPhoto />}
 		</div> 
 	);
 }
 
-function ItemFormShowPhoto({imgSrc, imgUrl, onDeleteImage, onEmptyFileInput}) {
+function ItemFormShowPhoto({imgSrc, imgUrl, onDeleteImage, onEmptyFileInput, changeCategory}) {
 
 	const onEmptyOrDelete = imgUrl !== '' ? onDeleteImage : onEmptyFileInput;
-	const imgClass = imgUrl !== '' ? 'itemform__photo-wrapper--big' : 'itemform__photo-wrapper--big itemform__photo-wrapper--overlay';
 
-	return (
-		<div className="itemform__nimikkeenKuva-wrapper">
-			<img id="nimikkeenKuva" className={imgClass} src={imgSrc} alt="Käyttäjän lisäämä kuva"></img>
-			<div className='itemform__kuvaikoni-wrapper'>
-				<div>
-					<ClearIcon htmlColor='#fff' onClick={onEmptyOrDelete} />
+	const [modalOpen, setModalOpen] = useState(false);
+	const avatarSize = changeCategory ? '100px' : '50vw';
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  return (
+    <div className="itemform__nimikkeenKuva-wrapper">
+			<div style={{height: avatarSize, position: 'relative'}}>
+				<Avatar
+					alt="Käyttäjän lisäämä kuva"
+					src={imgSrc}
+					sx={{ maxWidth: '200px', maxHeight: '200px', width: avatarSize, height: avatarSize, cursor: 'pointer' }}
+					onClick={handleOpenModal}
+				/>
+				<div className={`itemform__kuvaikoni-wrapper ${changeCategory ? 'itemform__kuvaikoni-wrapper_no-margin' : ''}`}>
+						<div>
+							<DeleteForever htmlColor="#505050" onClick={onEmptyOrDelete} />
+						</div>
 				</div>
 			</div>
-		</div>
-	);
+      <Modal
+        open={modalOpen}
+        onClose={handleCloseModal}
+      >
+        <div className="itemform__nimikkeenKuva-modaali">
+          <img
+            src={imgSrc}
+            alt="Nimikkeen kuva"
+            style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
+          />
+        </div>
+      </Modal>
+    </div>
+  );
 }
 
 function ItemFormAddPhoto() {
@@ -81,7 +112,7 @@ function ItemFormCategoryAll({kategoria, onInputChange, setChangeCategory}) {
 		)}
 		</div>
 		{/* Teksti pyytää valitsemaan kategorian. Jos kategoria on jo valittu, kertoo valitun kategorian nimen.*/}
-		<div className="itemform__category-legend">{kategoria ? "Vaatekategoria: " + kategoria : "Valitse vaatekategoria:"}</div>
+		<div className="itemform__category-legend">{kategoria ? "Vaatekategoria: " + kategoria : "Valitse vaatekategoria"}</div>
 		</div>
 	);
 }
@@ -89,9 +120,13 @@ function ItemFormCategoryAll({kategoria, onInputChange, setChangeCategory}) {
 function ItemFormCategorySelected({kategoria, setChangeCategory}) {
   
 	const selectedCategoryInfo = categories.filter(item => item.category === kategoria)[0];
+
+	const handleOpenAllCategories = () => {
+		setChangeCategory(true)
+	}
 	
 	return(
-		<div className='itemform__category-wrapper--big' onClick={() => setChangeCategory(true)}>
+		<div className='itemform__category-wrapper--big' onClick={handleOpenAllCategories}>
 			<input
 				type="hidden"
 				name="kategoria"

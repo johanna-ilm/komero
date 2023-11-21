@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link,  useLocation  } from 'react-router-dom';
-
+import DdMenu from '../DdMenu/DdMenu';
 import './Header.css';
 
 // Sovelluksen header. Komero-sanaa klikkaamalla saa auki koko Komeron sisällön (Items-komponentti).
@@ -27,7 +27,10 @@ export default function Header() {
   return (
     <div className="header">
       <div className='subHeader'>{subHeaderText}</div>
-      <Link to="/list/koko_komero"><h1>Komero</h1></Link>
+      <div className='mainHeader-wrapper'>
+        <Link to="/list/koko_komero"><h1>Komero</h1></Link>
+        <DdMenu />
+      </div>
     </div>
   );
 }

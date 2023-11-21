@@ -7,7 +7,7 @@
   color: #FFF;
   display: flex;
   justify-content: space-between;
-  padding: 0.5em;
+  padding: 0.5rem 0 0.5rem 0.5rem;
   max-height: 2.5em;
   min-height: 2.5em;
   }
@@ -15,7 +15,7 @@
 .header h1 {
   font-family: 'Permanent Marker', cursive;
   font-size: 1.8rem;
-  margin-right: 0.8em;
+
   align-self: flex-end;
 }
 
@@ -29,4 +29,15 @@
   font-size: 1.2rem;
   margin-left: 0.5rem;
   align-self: center;
+}
+
+.mainHeader-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mainHeader-wrapper button {
+  padding: 0;
+  min-width: 50px;
+  margin-top: 0.4rem;
 }

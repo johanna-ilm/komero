@@ -1,8 +1,10 @@
+.itemcard-wrapper {
+	margin: 0 0.7rem;
+	border-bottom: 1px solid gainsboro;
+	color: #555;
+}
 .itemcard {
 	display: flex;
-	margin: 0 1em;
-	border-bottom: 1px solid #ccc;
-	color: #555;
 }
 
 .itemcard__flex {
@@ -15,8 +17,9 @@
 
 .itemcard__color-div {
 	align-items: center;
-	margin-top: 1.3em;
-	flex: 0 0 10%; 
+	margin-top: 0.8em;
+	min-width: 45px;
+	flex: 0 0 15%; 
 }
 
 .itemcard__color {
@@ -26,6 +29,7 @@
 .itemcard__color-dot {
 	width: 1.2em;
 	height: 1.2em;
+	margin-top: 0.5em;
 	border-radius: 50%;
 	align-self: center;
 	opacity: 0.9;
@@ -36,12 +40,18 @@
 	transform: scale(0.9);
 }
 
+.itemcard_img {
+	width: 40px;
+	height: 40px;
+	border: 2px solid var(--vaalea-tehostevari);
+}
+
 
 /* Keskimmäinen div - nimike ja huomioita */
 
 .itemcard__label-notes-div {
 	flex: 1 1 auto;
-	margin: 1em 1em 0 1em;
+	margin: 1rem 0.8rem 0 0.8rem;
 }
 
 .itemcard__label {
@@ -82,12 +92,11 @@
   
 .itemcard__link {
 	flex: 1 1 auto;
-	max-width: 2em;
-	min-width: 2em;
+	max-width: 3rem;
+	min-width: 3rem;
 	background-color: #fbebe6;
 	justify-content: center;
 	align-items: center;
-	display: none;
 }
 
 .itemcard:hover .itemcard__link {

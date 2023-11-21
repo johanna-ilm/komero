@@ -11,7 +11,6 @@ import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import Items from './components/Items/Items';
 import Stats from './components/Stats/Stats';
-import Menu from './components/Menu/Menu';
 import AddItem from './components/AddItem/AddItem';
 import EditItem from './components/EditItem/EditItem';
 import Content from './components/Content/Content';
@@ -250,7 +249,6 @@ function App() {
 			<Route path="/stats" render={() => <Stats data={data} />} />
 			<Route path="/logout" render={() => <Logout onLogout={logout} user={user} />} />
 			<Toaster />
-			<Menu />
 		</div>
 		</Router>
 	);

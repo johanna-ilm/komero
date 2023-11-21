@@ -49,7 +49,6 @@ function ItemForm(props) {
             if(e.target.files[0]) {
                 setFile(e.target.files[0]);
                 setData({ ...data, tiedostonimi: e.target.files[0].name, imgUrl: ''});
-                console.log(data);
             } else {
                 setFile("");
                 setData({ ...data, tiedostonimi: '', imgUrl: ''});
@@ -57,12 +56,11 @@ function ItemForm(props) {
         } else {
             const { name, value } = e.target;
             setData({ ...data, [name]: value });
-            console.log(data);
         }
     }
 
 
-    // create a preview as a side effect, whenever selected file is changed
+    // Näytetään esikatselu, kun vaihdetaan valittu kuvatiedosto
     useEffect(() => {
         if (!file) {
             setPreview(undefined);            
@@ -72,7 +70,7 @@ function ItemForm(props) {
         const objectUrl = URL.createObjectURL(file);
         setPreview(objectUrl);
 
-        // free memory when ever this component is unmounted
+        // Vapauta muisti
         return () => URL.revokeObjectURL(objectUrl)
     }, [file]);
 
