@@ -50,7 +50,7 @@ function App() {
         });
       }
     });
-  }, []); // [] on tärkeä! Muuten useEffect suoritetaan uudestaan ja uudestaan.
+  }, [auth, db]); // [] on tärkeä! Muuten useEffect suoritetaan uudestaan ja uudestaan.
 
 
 	/**

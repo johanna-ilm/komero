@@ -13,7 +13,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import DoorSlidingIcon from '@mui/icons-material/DoorSliding';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {Dropdown, DropdownMenuItem} from '../Dropdown/Dropdown';
 
 
 // Sovelluksen alalaidassa oleva menu-palkki. Linkit etusivulle, tilastosivulle ja logout-sivulle. 
@@ -29,28 +28,6 @@ export default function DdMenu() {
   };
 
   return (
-    /*<Dropdown
-      keepOpen
-      open={open}
-      trigger={<Button><MoreVertIcon htmlColor="white" /></Button>}
-      menu={[
-        <DropdownMenuItem component={Link} to='/'>
-          <HomeIcon />Etusivu 
-        </DropdownMenuItem>,
-        <DropdownMenuItem component={Link} to='/list/koko_komero'>
-          <DoorSlidingIcon />Koko Komero 
-        </DropdownMenuItem>,
-        <DropdownMenuItem component={Link} to='/add'>
-          <AddCircleOutlinedIcon />Lisää Komeroon 
-        </DropdownMenuItem>,
-        <DropdownMenuItem component={Link} to='/stats'>
-          <BarChartIcon />Tilastot 
-        </DropdownMenuItem>,
-        <DropdownMenuItem component={Link} to='/logout'>
-          <LogoutIcon />Kirjaudu ulos 
-        </DropdownMenuItem>,
-      ]}
-    />*/
     <>
     <Button
       id="basic-button"
@@ -94,16 +71,3 @@ export default function DdMenu() {
     </>
   );
 };
-
-
-/*
-  return (
-    <div className="menu">
-      <div className="menu__container">
-        <Link to="/"><div><Home htmlColor="#fff" /></div></Link>
-        <Link to="/stats"><div><BarChart htmlColor="#fff" /></div></Link>
-        <Link to="/logout"><div className="menu__button"><img src={logout} alt="logout" /></div></Link>
-      </div>
-    </div>
-  );
-}*/

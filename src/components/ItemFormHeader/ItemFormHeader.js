@@ -12,26 +12,27 @@ export default function ItemFormHeader({data, preview, onInputChange, onDeleteIm
 
 	const [changeCategory, setChangeCategory] = useState(false);
 	const imgSrc = data.imgUrl || preview;
+	const categorySelectionOpen = !data.kategoria || changeCategory;
 
 	return(
 		<div className="itemform__header-wrapper">
-			{(!data.kategoria || changeCategory) 
+			{(categorySelectionOpen) 
 				? <ItemFormCategoryAll kategoria={data.kategoria} onInputChange={onInputChange} setChangeCategory={setChangeCategory}/>
 				: <ItemFormCategorySelected kategoria={data.kategoria} setChangeCategory={setChangeCategory} />}
 			<input type="file" id="kuvatiedosto" className='itemform__fileInput' accept="image/*" onChange={onInputChange}/>
 			{imgSrc 
-				? <ItemFormShowPhoto imgSrc={imgSrc} imgUrl={data.imgUrl} onDeleteImage={onDeleteImage} onEmptyFileInput={onEmptyFileInput} changeCategory={changeCategory} /> 
+				? <ItemFormShowPhoto imgSrc={imgSrc} imgUrl={data.imgUrl} onDeleteImage={onDeleteImage} onEmptyFileInput={onEmptyFileInput} categorySelectionOpen={categorySelectionOpen} /> 
 				: <ItemFormAddPhoto />}
 		</div> 
 	);
 }
 
-function ItemFormShowPhoto({imgSrc, imgUrl, onDeleteImage, onEmptyFileInput, changeCategory}) {
+function ItemFormShowPhoto({imgSrc, imgUrl, onDeleteImage, onEmptyFileInput, categorySelectionOpen}) {
 
 	const onEmptyOrDelete = imgUrl !== '' ? onDeleteImage : onEmptyFileInput;
 
 	const [modalOpen, setModalOpen] = useState(false);
-	const avatarSize = changeCategory ? '100px' : '50vw';
+	const avatarSize = categorySelectionOpen ? '100px' : '50vw';
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -50,7 +51,7 @@ function ItemFormShowPhoto({imgSrc, imgUrl, onDeleteImage, onEmptyFileInput, cha
 					sx={{ maxWidth: '200px', maxHeight: '200px', width: avatarSize, height: avatarSize, cursor: 'pointer' }}
 					onClick={handleOpenModal}
 				/>
-				<div className={`itemform__kuvaikoni-wrapper ${changeCategory ? 'itemform__kuvaikoni-wrapper_no-margin' : ''}`}>
+				<div className={`itemform__kuvaikoni-wrapper ${categorySelectionOpen ? 'itemform__kuvaikoni-wrapper_no-margin' : ''}`}>
 						<div>
 							<DeleteForever htmlColor="#505050" onClick={onEmptyOrDelete} />
 						</div>

@@ -286,6 +286,10 @@ const accessoriesSizes = [
         optionValue: 5456
     },
     {
+        optionLabel: "56-58",
+        optionValue: 5658
+    },
+    {
         optionLabel: "0-6kk",
         optionValue: 0.1
     },
@@ -324,6 +328,10 @@ const accessoriesSizes = [
     {
         optionLabel: "10-12v",
         optionValue: 10
+    },
+    {
+        optionLabel: "12-14v",
+        optionValue: 12
     },
     {
         optionLabel: "Muu",

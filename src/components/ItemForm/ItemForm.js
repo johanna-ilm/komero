@@ -7,13 +7,15 @@ import './ItemForm.css';
 import { categories, clothingSizes, shoeSizes, accessoriesSizes } from './itemFormData';
 
 import Button from '../buttons';
+import CustomDialog from '../Dialog/Dialog';
 import ItemFormHeader from '../ItemFormHeader/ItemFormHeader';
 
 
 // Komponentti, joka muodostaa lomakkeen /add ja /edit/-sivuille (AddItem- ja EditItem-komponentteihin) 
 function ItemForm(props) {
     const [file, setFile] = useState(null);
-    const [preview, setPreview] = useState();
+    const [preview, setPreview] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
     const [data, setData] = useState(
         props.data ? props.data : {
             kategoria: "",
@@ -50,7 +52,7 @@ function ItemForm(props) {
                 setFile(e.target.files[0]);
                 setData({ ...data, tiedostonimi: e.target.files[0].name, imgUrl: ''});
             } else {
-                setFile("");
+                setFile(null);
                 setData({ ...data, tiedostonimi: '', imgUrl: ''});
             }
         } else {
@@ -63,7 +65,7 @@ function ItemForm(props) {
     // Näytetään esikatselu, kun vaihdetaan valittu kuvatiedosto
     useEffect(() => {
         if (!file) {
-            setPreview(undefined);            
+            setPreview(null);            
             return;
         }
 
@@ -85,6 +87,10 @@ function ItemForm(props) {
     // Vie käyttäjän kyseisen kategorian listaussivulle (Items-komponentti).
     const handleSubmit = async e => {
         e.preventDefault();
+        if (submitting) {
+            return;
+        }
+        setSubmitting(true);
         let newData = Object.assign({}, data);
 
         // Tarkasta, että kategoria on valittu
@@ -105,13 +111,28 @@ function ItemForm(props) {
 
     // Poistaa kyseisen nimikkeen tietokannasta id:n perusteella. 
     // Vie käyttäjän kyseisen kategorian listaussivulle (Items-komponentti), jos poisto onnistui.
-    const handleItemDelete = async (e) => {
-        e.preventDefault();
+    const handleItemDelete = async () => {
         const itemDeleted = await props.onDeleteItem(data);
         if(itemDeleted) {
             props.history.push("/list/" + categories[index].url);
         }
     }
+
+    const [dialogOpen, setDialogOpen] = useState(false);
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        setDialogOpen(true);
+    };
+
+    const handleClose = () => {
+        setDialogOpen(false);
+    };
+
+    const handleConfirm = () => {
+        handleItemDelete();
+        setDialogOpen(false);
+    };
 
     const handleImageDelete = async (e) => {
         e.preventDefault();
@@ -123,7 +144,8 @@ function ItemForm(props) {
 
     const handleEmptyFileInput = (e) => {
         e.preventDefault();
-        setFile('');
+        setFile(null);
+        setData({ ...data, tiedostonimi: '', imgUrl: ''});
     }
     
     return (
@@ -238,13 +260,19 @@ function ItemForm(props) {
                 {/* Napit */}
                 <div className="itemform__button-row">
                     {/* Peruuta-nappi */}
-                    <div><Button onClick={handleCancel} secondary>Peruuta</Button></div>
+                    <div><Button onClick={handleCancel} secondary disabled={submitting}>Peruuta</Button></div>
                     {/* Lisää / Tallenna -nappi */}
-                    <div><Button type="submit" primary>{data.id ? "Tallenna" : "Lisää"}</Button></div>
+                    <div><Button type="submit" primary>Tallenna</Button></div>
                     {/* Poista-nappi */}
-                    {props.onDeleteItem ? <div><Button onClick={handleItemDelete} secondary>Poista</Button></div> : ""}
+                    {props.onDeleteItem ? <div><Button onClick={handleDelete} secondary>Poista</Button></div> : ""}
+                    <CustomDialog
+                        open={dialogOpen}
+                        onClose={handleClose}
+                        onConfirm={handleConfirm}
+                        title="Vahvista poisto"
+                        content="Haluatko varmasti poistaa tämän nimikkeen Komerosta?"
+                    />
                 </div>
-
             </div>
             <Toaster />
         </form>
